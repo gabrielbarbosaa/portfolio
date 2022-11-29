@@ -2,8 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
     footer: {
-      position: 'absolute',
-      bottom: 0,
+      position: 'relative',
       width: '100%',
       borderTop: `1px solid #1a1a1a`,
       background: '#141414',

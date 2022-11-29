@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #141414;
     color: #FFFFFF
 }
 
 html,
 body {
+    background-color: #141414 !important;
     font-family: 'Montserrat', sans-serif;
 }
