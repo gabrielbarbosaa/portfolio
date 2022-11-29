@@ -6,7 +6,7 @@ export default function Document() {
       <Head title='Gabriel Barbosa'>
       <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.ico" />
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        @import url(`https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap`);
       </style>  
       </Head>
       <body>
