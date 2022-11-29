@@ -29,13 +29,13 @@ interface ICard {
             alt='tecnologie icon'
             width={28}
             height={28}
-            style={{background: 'none'}}
+            style={{background: `none`}}
           />
         </ThemeIcon>
-        <Text size="xl" weight={500} mt="md" bg={'#202020'} color='#FFF'>
+        <Text size="xl" weight={500} mt="md" bg='#202020' color='#FFF'>
           {title}
         </Text>
-        <Text size="sm" mt="sm" color="dimmed" bg={'#202020'}>
+        <Text size="sm" mt="sm" color="dimmed" bg='#202020'>
           {description}
         </Text>
       </Paper>
