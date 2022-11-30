@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core';
 import '../styles/globals.css';
-import { Navigation } from '../components/Header';
-import { Footer } from '../components/footer';
+import { Navigation } from '../components/ui/Header';
+import { Footer } from '../components/ui/footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
