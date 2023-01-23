@@ -32,7 +32,7 @@ export default function Home() {
                   <Image 
                     src='/images/gabrielBarbosa.png'
                     alt='Image developer'
-                    height='90vh'
+                    height={{ sm: '50%', lg: '700px' }}
                   />
               </div>
             </Flex>
