@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FOCCO",
+  title: "Gabriel Barbosa",
   description:
-    "A FOCCO é uma empresa especializada na administração profissional de condomínios em Porto Alegre/RS.",
+    "Gabriel Barbosa é um desenvolvedor front-end especializado em criar experiências web e mobile de alta qualidade.",
 };
 
 export default function RootLayout({
