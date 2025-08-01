@@ -36,7 +36,7 @@ export function Projects() {
       demo: "https://www.automotivebusiness.com.br/",
     },
     {
-      title: "Sistema de Gestão",
+      title: "FleetDesk ",
       description:
         "FleetDesk é uma empresa de tecnologia logística (LogTech) que oferece soluções de gestão de frota, com foco em otimização de rotas e gerenciamento em tempo real.",
       technologies: ["React", "TypeScript", "Bootstrap", "Redux", "Jest"],

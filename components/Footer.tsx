@@ -1,3 +1,4 @@
+"use client";
 export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
