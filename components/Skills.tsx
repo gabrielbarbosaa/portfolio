@@ -114,7 +114,6 @@ export function Skills() {
     "Jira",
     "Trello",
     "Firebase",
-    "Supabase",
     "Vercel",
     "GitHub",
   ];
