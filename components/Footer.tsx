@@ -1,18 +1,21 @@
 "use client";
+
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="text-center md:text-left mb-4 md:mb-0">
-            <p className="text-muted-foreground">
-              © {new Date().getFullYear()} Desenvolvido por Gabriel Barbosa.
-              Todos os direitos reservados.
+    <footer className="border-t border-[var(--border)] bg-[var(--bg-secondary)]/50">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-lg font-bold text-[var(--text-primary)]">
+              GB<span className="text-[var(--accent)]">.</span>
+            </span>
+            <p className="text-sm text-[var(--text-muted)]">
+              © {new Date().getFullYear()} Gabriel Barbosa. Todos os direitos reservados.
             </p>
           </div>
-          <div className="text-center md:text-right">
-            <p className="text-muted-foreground">Feito com ❤️ e muito ☕</p>
-          </div>
+          <p className="text-sm text-[var(--text-muted)]">
+            Feito com <span className="text-[var(--accent-warm)]">❤️</span> e muito ☕
+          </p>
         </div>
       </div>
     </footer>

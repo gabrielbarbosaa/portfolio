@@ -1,238 +1,79 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Button } from "./ui/button";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Copy,
-  Clock,
-  Calendar,
-  ExternalLink,
-} from "lucide-react";
-import { toast } from "sonner";
-import Link from "next/link";
+"use client";
+
+import { ScrollReveal } from "./ui/ScrollReveal";
+import { motion } from "framer-motion";
+import { Mail, Phone, Github, Linkedin, Clock, MapPin, Calendar, ArrowUpRight, Copy } from "lucide-react";
 
 export function Contact() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copiado para a área de transferência!");
   };
 
-  const contactMethods = [
-    {
-      icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      value: "gbarbosa1602@gmail.com",
-      description: "Melhor forma para propostas e projetos",
-      action: "mailto:gbarbosa1602@gmail.com",
-      actionLabel: "Enviar Email",
-    },
-    {
-      icon: <Phone className="w-6 h-6" />,
-      title: "WhatsApp",
-      value: "+55 (51) 99171-6040",
-      description: "Para conversas rápidas e dúvidas",
-      action: "https://wa.me/5551991716040",
-      actionLabel: "Abrir WhatsApp",
-    },
+  const contactCards = [
+    { icon: <Mail className="w-5 h-5" />, title: "Email", value: "gbarbosa1602@gmail.com", desc: "Melhor forma para propostas", href: "mailto:gbarbosa1602@gmail.com", label: "Enviar Email" },
+    { icon: <Phone className="w-5 h-5" />, title: "WhatsApp", value: "+55 (51) 99171-6040", desc: "Para conversas rápidas", href: "https://wa.me/5551991716040", label: "Abrir WhatsApp" },
+    { icon: <Github className="w-5 h-5" />, title: "GitHub", value: "@gabrielbarbosaa", desc: "Projetos e contribuições", href: "https://github.com/gabrielbarbosaa/", label: "Visitar" },
+    { icon: <Linkedin className="w-5 h-5" />, title: "LinkedIn", value: "Gabriel Barbosa", desc: "Conecte-se profissionalmente", href: "https://linkedin.com", label: "Visitar" },
   ];
-
-  const socialLinks = [
-    {
-      icon: <Github className="w-5 h-5" />,
-      title: "GitHub",
-      username: "@gabrielbarbosaa",
-      description: "Veja meus projetos e contribuições",
-      href: "https://github.com/gabrielbarbosaa/",
-    },
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      title: "LinkedIn",
-      username: "Gabriel Barbosa",
-      description: "Conecte-se profissionalmente",
-      href: "https://linkedin.com",
-    },
-  ];
-
-  const availability = {
-    status: "Disponível para novos projetos",
-    workingHours: "Segunda a Sexta, 9h às 18h",
-    timezone: "UTC-3 (Brasília)",
-    responseTime: "Resposta em até 24h",
-  };
 
   return (
-    <section id="contact" className="py-20 bg-muted/20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl mb-4">Entre em Contato</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Interessado em trabalhar juntos? Vamos conversar sobre seu próximo
-              projeto.
-            </p>
-          </div>
+    <section id="contact" className="py-24 md:py-32">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+        <div className="grid md:grid-cols-5 gap-12 md:gap-16">
+          {/* Left — Copy + Status */}
+          <div className="md:col-span-2">
+            <ScrollReveal>
+          <span className="font-mono text-sm text-[var(--accent)] mb-4 block">
+            {"// contato"}
+          </span>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-6">
+                Vamos trabalhar<br />juntos?
+              </h2>
+              <p className="text-[var(--text-secondary)] mb-8 leading-relaxed">
+                Interessado em trabalhar juntos? Vamos conversar sobre seu próximo projeto.
+              </p>
+            </ScrollReveal>
 
-          <Card className="mb-8">
-            <CardContent className="pt-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <ScrollReveal delay={0.15}>
+              <div className="bg-[var(--bg-secondary)] rounded-xl border border-[var(--border)] p-5 space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-lg font-medium">
-                    {availability.status}
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                   </span>
+                  <span className="text-sm font-medium text-[var(--text-primary)]">Disponível para novos projetos</span>
                 </div>
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {availability.workingHours}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {availability.timezone}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {availability.responseTime}
-                  </span>
+                <div className="space-y-2 text-sm text-[var(--text-muted)]">
+                  <div className="flex items-center gap-2"><Clock className="w-3.5 h-3.5" />Seg–Sex, 9h às 18h</div>
+                  <div className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" />UTC-3 (Brasília)</div>
+                  <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" />Resposta em até 24h</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div className="space-y-6">
-              <h3 className="text-xl font-medium">Formas de Contato</h3>
-              {contactMethods.map((method, index) => (
-                <Card key={index}>
-                  <CardContent className="pt-6">
-                    <div className="flex items-start gap-4">
-                      <div className="text-primary">{method.icon}</div>
-                      <div className="flex-1">
-                        <h4 className="font-medium mb-1">{method.title}</h4>
-                        <p className="text-muted-foreground text-sm mb-2">
-                          {method.description}
-                        </p>
-                        <p className="font-mono text-sm mb-3">{method.value}</p>
-                        <div className="flex gap-2">
-                          <Button size="sm" asChild>
-                            <a
-                              href={method.action}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              {method.actionLabel}
-                            </a>
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => copyToClipboard(method.value)}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Redes Sociais */}
-            <div className="space-y-6">
-              <h3 className="text-xl font-medium">Redes Sociais</h3>
-              {socialLinks.map((social, index) => (
-                <Card key={index}>
-                  <CardContent className="pt-6">
-                    <div className="flex items-start gap-4">
-                      <div className="text-primary">{social.icon}</div>
-                      <div className="flex-1">
-                        <h4 className="font-medium mb-1">{social.title}</h4>
-                        <p className="text-muted-foreground text-sm mb-2">
-                          {social.description}
-                        </p>
-                        <p className="text-sm mb-2">{social.username}</p>
-                        <div className="flex items-center justify-between">
-                          <Button size="sm" variant="outline" asChild>
-                            <Link
-                              href={social.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              Visitar
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            </ScrollReveal>
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                Localização & Trabalho
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="font-medium mb-2">Localização</h4>
-                  <p className="text-muted-foreground">
-                    Porto Alegre, RS - Brasil
-                  </p>
-                  <p className="text-muted-foreground text-sm">
-                    Fuso horário: UTC-3
-                  </p>
+          {/* Right — Contact Cards */}
+          <div className="md:col-span-3 grid sm:grid-cols-2 gap-4">
+            {contactCards.map((card, i) => (
+              <motion.div key={i}
+                className="group rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)] p-5 hover:border-[var(--accent)]/40 transition-all duration-200"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-[var(--accent)]">{card.icon}</div>
+                  <button onClick={() => copyToClipboard(card.value)} className="opacity-0 group-hover:opacity-100 transition-opacity text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer" title="Copiar">
+                    <Copy className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-                <div>
-                  <h4 className="font-medium mb-2">Modalidade</h4>
-                  <p className="text-muted-foreground">Trabalho remoto</p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2">Idiomas</h4>
-                  <p className="text-muted-foreground">Português (Nativo)</p>
-                  <p className="text-muted-foreground text-sm">
-                    Inglês (Técnico)
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Call to Action */}
-          <div className="text-center mt-12">
-            <h3 className="text-xl mb-4">Pronto para começar seu projeto?</h3>
-            <p className="text-muted-foreground mb-6">
-              Entre em contato e vamos transformar suas ideias em realidade.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <a href="mailto:gbarbosa1602@gmail.com">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Enviar Email
+                <h4 className="font-display font-bold text-[var(--text-primary)] mb-1">{card.title}</h4>
+                <p className="text-xs text-[var(--text-muted)] mb-3">{card.desc}</p>
+                <p className="font-mono text-sm text-[var(--text-secondary)] mb-4">{card.value}</p>
+                <a href={card.href} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] hover:gap-2.5 transition-all duration-200">
+                  {card.label}<ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a
-                  href="https://wa.me/5551991716040"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  WhatsApp
-                </a>
-              </Button>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>

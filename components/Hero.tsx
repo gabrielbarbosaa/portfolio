@@ -1,17 +1,25 @@
-import Link from "next/link";
-import { Button } from "./ui/button";
-import { Github, Linkedin, Mail } from "lucide-react";
+"use client";
+
+import { motion } from "framer-motion";
+import { MeshGradient } from "./background/MeshGradient";
+import { ArrowRight } from "lucide-react";
+
+const heroVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  }),
+};
 
 export function Hero() {
-  const handleContactClick = () => {
-    const element = document.querySelector("#contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleProjectsClick = () => {
-    const element = document.querySelector("#projects");
+  const handleNavClick = (id: string) => {
+    const element = document.querySelector(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -20,60 +28,89 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-background to-muted/20"
+      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
     >
-      <div className="container mx-auto px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Desenvolvedor Front-End e Mobile
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Focado em performance, UX e código de qualidade. Especializado em
-            React, React Native, Next.js e tecnologias modernas.
-          </p>
+      <MeshGradient />
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              onClick={handleProjectsClick}
-              size="lg"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              Veja meus projetos
-            </Button>
-            <Button
-              onClick={handleContactClick}
-              variant="outline"
-              size="lg"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              Entre em contato
-            </Button>
-          </div>
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 w-full">
+        <div className="max-w-3xl">
+          {/* Animated tag */}
+          <motion.div
+            custom={0}
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+            className="inline-flex items-center gap-2 mb-8"
+          >
+            <span className="font-mono text-sm text-[var(--accent)] bg-[var(--accent)]/10 px-4 py-2 rounded-full border border-[var(--accent)]/20">
+              &lt; Desenvolvedor Front-End &amp; Mobile /&gt;
+            </span>
+          </motion.div>
 
-          <div className="flex justify-center space-x-6">
-            <Link
-              href="https://github.com/gabrielbarbosaa"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+          {/* H1 */}
+          <motion.h1
+            custom={1}
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+            className="font-display font-extrabold leading-[1.05] mb-6"
+            style={{
+              fontSize: "clamp(3rem, 8vw, 5.5rem)",
+            }}
+          >
+            <span className="text-[var(--text-primary)]">Gabriel</span>
+            <br />
+            <span className="text-[var(--accent)]">Barbosa</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            custom={2}
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+            className="font-mono text-base md:text-lg text-[var(--text-secondary)] mb-8 tracking-wide"
+          >
+            React · Next.js · TypeScript · React Native
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            custom={3}
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col sm:flex-row gap-4 mb-10"
+          >
+            <button
+              onClick={() => handleNavClick("#projects")}
+              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-xl font-medium transition-all duration-200 hover:shadow-[0_8px_24px_rgba(0,85,255,0.25)] cursor-pointer"
             >
-              <Github className="w-6 h-6" />
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/gabriel-barbosa-azevedo/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              Ver Projetos
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button
+              onClick={() => handleNavClick("#contact")}
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] rounded-xl font-medium transition-all duration-200 bg-transparent cursor-pointer"
             >
-              <Linkedin className="w-6 h-6" />
-            </Link>
-            <Link
-              href="mailto:gbarbosa1602@gmail.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Mail className="w-6 h-6" />
-            </Link>
-          </div>
+              Entrar em Contato
+            </button>
+          </motion.div>
+
+          {/* Availability Status */}
+          <motion.div
+            custom={4}
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+            className="inline-flex items-center gap-3 text-sm text-[var(--text-muted)]"
+          >
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            Disponível para novos projetos
+          </motion.div>
         </div>
       </div>
     </section>
