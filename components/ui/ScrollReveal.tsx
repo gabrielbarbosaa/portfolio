@@ -9,39 +9,45 @@ interface ScrollRevealProps {
   delay?: number;
   duration?: number;
   className?: string;
-  direction?: "up" | "down" | "left" | "right";
+  variant?: "rise" | "fade" | "clip";
 }
-
-const directionOffset = {
-  up: { x: 0, y: 30 },
-  down: { x: 0, y: -30 },
-  left: { x: 30, y: 0 },
-  right: { x: -30, y: 0 },
-};
 
 export function ScrollReveal({
   children,
   delay = 0,
-  duration = 0.6,
+  duration = 0.7,
   className = "",
-  direction = "up",
+  variant = "rise",
 }: ScrollRevealProps) {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
-  const offset = directionOffset[direction];
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.12 });
+
+  const variants = {
+    rise: {
+      hidden: { opacity: 0, y: 32, filter: "blur(6px)" },
+      visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+    },
+    fade: {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1 },
+    },
+    clip: {
+      hidden: { opacity: 0, clipPath: "inset(0 100% 0 0)" },
+      visible: { opacity: 1, clipPath: "inset(0 0% 0 0)" },
+    },
+  } as const;
+
+  const chosen = variants[variant];
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: offset.x, y: offset.y }}
-      animate={
-        isVisible
-          ? { opacity: 1, x: 0, y: 0 }
-          : { opacity: 0, x: offset.x, y: offset.y }
-      }
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      variants={chosen}
       transition={{
         delay,
         duration,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.22, 1, 0.36, 1],
       }}
       className={className}
     >

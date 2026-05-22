@@ -1,118 +1,240 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MeshGradient } from "./background/MeshGradient";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveDown } from "lucide-react";
+import { AuroraField } from "./background/AuroraField";
+import { Ticker } from "./ui/Ticker";
+import { MagneticButton } from "./ui/MagneticButton";
+import { useI18n } from "@/lib/i18n/I18nProvider";
 
 const heroVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
+    filter: "blur(0px)",
     transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+      delay: 0.1 + i * 0.08,
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     },
   }),
 };
 
 export function Hero() {
+  const { t } = useI18n();
   const handleNavClick = (id: string) => {
     const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+      className="relative min-h-screen flex flex-col pt-24 overflow-hidden"
     >
-      <MeshGradient />
+      <AuroraField />
 
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 w-full">
-        <div className="max-w-3xl">
-          {/* Animated tag */}
-          <motion.div
-            custom={0}
-            variants={heroVariants}
-            initial="hidden"
-            animate="visible"
-            className="inline-flex items-center gap-2 mb-8"
-          >
-            <span className="font-mono text-sm text-[var(--accent)] bg-[var(--accent)]/10 px-4 py-2 rounded-full border border-[var(--accent)]/20">
-              &lt; Desenvolvedor Front-End &amp; Mobile /&gt;
-            </span>
-          </motion.div>
+      <div className="relative z-10 flex-1 flex items-center w-full">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 w-full">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+            <div className="lg:col-span-8">
+              <motion.div
+                custom={0}
+                variants={heroVariants}
+                initial="hidden"
+                animate="visible"
+                className="flex items-center gap-3 mb-8"
+              >
+                <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-[var(--accent)] px-3 py-1.5 border border-[var(--accent)]/40 rounded-sm bg-[var(--accent)]/5">
+                  {t.hero.transmission}
+                </span>
+                <span className="h-px flex-1 max-w-[80px] bg-[var(--border-strong)]" />
+                <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[var(--text-muted)]">
+                  {t.hero.handshake}
+                </span>
+              </motion.div>
 
-          {/* H1 */}
-          <motion.h1
-            custom={1}
-            variants={heroVariants}
-            initial="hidden"
-            animate="visible"
-            className="font-display font-extrabold leading-[1.05] mb-6"
-            style={{
-              fontSize: "clamp(3rem, 8vw, 5.5rem)",
-            }}
-          >
-            <span className="text-[var(--text-primary)]">Gabriel</span>
-            <br />
-            <span className="text-[var(--accent)]">Barbosa</span>
-          </motion.h1>
+              <motion.h1
+                custom={1}
+                variants={heroVariants}
+                initial="hidden"
+                animate="visible"
+                className="font-display font-bold leading-[0.88] mb-8 tracking-[-0.04em]"
+                style={{ fontSize: "clamp(3.25rem, 10vw, 8.25rem)" }}
+              >
+                <span className="block text-[var(--text)]">Gabriel</span>
+                <span className="block text-[var(--accent)] text-glow">
+                  Barbosa<span className="caret align-baseline" />
+                </span>
+              </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p
-            custom={2}
-            variants={heroVariants}
-            initial="hidden"
-            animate="visible"
-            className="font-mono text-base md:text-lg text-[var(--text-secondary)] mb-8 tracking-wide"
-          >
-            React · Next.js · TypeScript · React Native
-          </motion.p>
+              <motion.div
+                custom={2}
+                variants={heroVariants}
+                initial="hidden"
+                animate="visible"
+                className="mb-10 max-w-xl"
+              >
+                <p className="font-display text-xl md:text-2xl text-[var(--text-soft)] leading-tight mb-4">
+                  {t.hero.intro.line1}
+                  <br />
+                  {t.hero.intro.line2}{" "}
+                  <span className="text-[var(--accent)] font-bold">web</span> ·{" "}
+                  <span className="text-[var(--accent)] font-bold">mobile</span>{" "}
+                  ·{" "}
+                  <span className="text-[var(--accent)] font-bold">finance</span>.
+                </p>
+                <p className="font-mono text-xs tracking-[0.16em] uppercase text-[var(--text-muted)]">
+                  {t.hero.intro.tags}
+                </p>
+              </motion.div>
 
-          {/* CTAs */}
-          <motion.div
-            custom={3}
-            variants={heroVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col sm:flex-row gap-4 mb-10"
-          >
-            <button
-              onClick={() => handleNavClick("#projects")}
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-xl font-medium transition-all duration-200 hover:shadow-[0_8px_24px_rgba(0,85,255,0.25)] cursor-pointer"
+              <motion.div
+                custom={3}
+                variants={heroVariants}
+                initial="hidden"
+                animate="visible"
+                className="flex flex-col sm:flex-row gap-3 mb-12"
+              >
+                <MagneticButton onClick={() => handleNavClick("#projects")}>
+                  {t.hero.cta.primary}
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </MagneticButton>
+                <MagneticButton
+                  variant="ghost"
+                  onClick={() => handleNavClick("#contact")}
+                >
+                  {t.hero.cta.secondary}
+                </MagneticButton>
+              </motion.div>
+            </div>
+
+            <motion.div
+              custom={4}
+              variants={heroVariants}
+              initial="hidden"
+              animate="visible"
+              className="lg:col-span-4 space-y-3"
             >
-              Ver Projetos
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
-            <button
-              onClick={() => handleNavClick("#contact")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] rounded-xl font-medium transition-all duration-200 bg-transparent cursor-pointer"
-            >
-              Entrar em Contato
-            </button>
-          </motion.div>
+              <TelemetryCard
+                label={t.hero.telemetry.status.label}
+                value={t.hero.telemetry.status.value}
+                detail={t.hero.telemetry.status.detail}
+                pulse
+              />
+              <TelemetryCard
+                label={t.hero.telemetry.role.label}
+                value={t.hero.telemetry.role.value}
+                detail={t.hero.telemetry.role.detail}
+              />
+              <TelemetryCard
+                label={t.hero.telemetry.uptime.label}
+                value={t.hero.telemetry.uptime.value}
+                detail={t.hero.telemetry.uptime.detail}
+              />
+              <div className="data-panel p-4 flex items-center justify-between">
+                <div>
+                  <div className="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--text-muted)] mb-1">
+                    {t.hero.telemetry.coordinates}
+                  </div>
+                  <div className="font-mono text-xs text-[var(--text)]">
+                    -30.0277° S · -51.2287° W
+                  </div>
+                </div>
+                <svg
+                  viewBox="0 0 40 40"
+                  className="w-10 h-10 text-[var(--accent)]"
+                >
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.7"
+                    opacity="0.45"
+                  />
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.7"
+                    opacity="0.6"
+                  />
+                  <circle cx="20" cy="20" r="2" fill="currentColor" />
+                  <line
+                    x1="2"
+                    y1="20"
+                    x2="38"
+                    y2="20"
+                    stroke="currentColor"
+                    strokeWidth="0.4"
+                    opacity="0.4"
+                  />
+                  <line
+                    x1="20"
+                    y1="2"
+                    x2="20"
+                    y2="38"
+                    stroke="currentColor"
+                    strokeWidth="0.4"
+                    opacity="0.4"
+                  />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
 
-          {/* Availability Status */}
           <motion.div
-            custom={4}
-            variants={heroVariants}
-            initial="hidden"
-            animate="visible"
-            className="inline-flex items-center gap-3 text-sm text-[var(--text-muted)]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="mt-16 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--text-muted)]"
           >
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-            Disponível para novos projetos
+            <MoveDown className="w-3 h-3 text-[var(--accent)] animate-bounce" />
+            {t.hero.scroll}
           </motion.div>
         </div>
       </div>
+
+      <div className="relative z-10 mt-auto">
+        <Ticker />
+      </div>
     </section>
+  );
+}
+
+function TelemetryCard({
+  label,
+  value,
+  detail,
+  pulse = false,
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  pulse?: boolean;
+}) {
+  return (
+    <div className="data-panel p-4">
+      <div className="flex items-center justify-between mb-2">
+        <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--text-muted)]">
+          {label}
+        </span>
+        {pulse && (
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-60 animate-ping" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]" />
+          </span>
+        )}
+      </div>
+      <div className="font-display text-lg font-bold text-[var(--text)] mb-1">
+        {value}
+      </div>
+      <div className="font-mono text-[11px] text-[var(--text-soft)]">{detail}</div>
+    </div>
   );
 }

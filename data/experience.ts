@@ -17,50 +17,96 @@ export interface Education {
 
 export const experiences: Experience[] = [
   {
-    title: "Desenvolvedor Front-end Pleno",
-    company: "CRIA Design Digital",
-    location: "Viamão, RS",
-    period: "2025 – Atual",
+    title: "Desenvolvedor Front-end Sênior",
+    company: "ATF Credit Sociedade de Crédito Direto S/A",
+    location: "Porto Alegre, RS",
+    period: "Fev 2026 – Atual",
     description:
-      "Atuação no desenvolvimento de aplicações web e mobile com React, React Native, Next.js e TypeScript. Experiência na criação de interfaces responsivas com Styled Components, Tailwind, Chakra e Mantine. Participação em todas as etapas do projeto, desde o levantamento de requisitos até o deploy, com foco em performance, manutenção e evolução de código. Trabalho colaborativo com times de design, produto e back-end para garantir entregas de qualidade.",
+      "Responsável pela arquitetura e governança técnica do front-end das plataformas digitais bancárias (Internet Banking e Mobile). Lidero decisões do ecossistema front-end — definição de stack, padrões de desenvolvimento, organização de código e diretrizes arquiteturais — garantindo escalabilidade, consistência e evolução sustentável das aplicações. Atuação direta em fluxos críticos do sistema financeiro, como autenticação, sessões e transações, com foco em segurança, performance e confiabilidade. Atuo como referência técnica para o time, apoiando tomada de decisões, code reviews e disseminação de boas práticas.",
     technologies: [
       "React",
       "Next.js",
+      "React Native",
       "TypeScript",
       "Tailwind CSS",
-      "Mantine",
-      "Chakra UI",
-      "Styled Components",
-      "React Native",
     ],
     isCurrent: true,
   },
   {
     title: "Desenvolvedor Front-end Pleno",
-    company: "Zaply",
-    location: "Porto Alegre, RS",
-    period: "2024 – 2025",
-    description:
-      "Desenvolvimento de aplicações web e mobile com React, React Native, Next.js e TypeScript. Criação de interfaces responsivas com Styled Components, Tailwind, Chakra e Mantine. Atuação em sistemas escaláveis e de alta performance, com foco em qualidade por meio de testes automatizados (unitários e e2e). Participação ativa em todas as etapas do projeto — do levantamento de requisitos ao deploy — incluindo integrações com APIs externas, adaptação de layout para múltiplos dispositivos, planejamento técnico e code reviews. Colaboração constante com designers, PMs e back-end para entregas alinhadas ao produto.",
-    technologies: ["React", "Chakra UI", "Zustand", "Vite", "TypeScript"],
-  },
-  {
-    title: "Desenvolvedor Front-end Pleno",
-    company: "CRIA Design Digital",
+    company: "Cria Digital",
     location: "Viamão, RS",
-    period: "2021 – 2024",
+    period: "Abr 2025 – Fev 2026",
     description:
-      "Atuação no desenvolvimento de aplicações web e mobile com React, React Native, Next.js e TypeScript. Experiência na criação de interfaces responsivas com Styled Components, Tailwind, Chakra e Mantine. Participação em todas as etapas do projeto, desde o levantamento de requisitos até o deploy, com foco em performance, manutenção e evolução de código. Trabalho colaborativo com times de design, produto e back-end para garantir entregas de qualidade.",
+      "Ulook — Desenvolvimento de uma rede social voltada à moda, com foco em SEO e experiência do usuário, atuando tanto no site principal (Next.js) quanto na dashboard administrativa, garantindo performance e escalabilidade. EQR Holding — Desenvolvimento de uma plataforma de investimentos de alto padrão, com gráficos interativos, controle de estado global e consumo dinâmico de dados, com foco em performance e experiência premium.",
     technologies: [
       "React",
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Mantine",
-      "Chakra UI",
-      "Styled Components",
-      "React Native",
+      "Zustand",
     ],
+  },
+  {
+    title: "Desenvolvedor Front-end Pleno I",
+    company: "Zaply",
+    location: "Porto Alegre, RS",
+    period: "Set 2024 – Abr 2025",
+    description:
+      "Desenvolvimento de uma solução de compra integrada de ingredientes para sites como Nestlé, Sadia e Qualy, permitindo ao usuário adquirir todos os itens de uma receita diretamente. Criação do sistema em React e conversão em script CDN para fácil integração com diferentes portais.",
+    technologies: ["React", "TypeScript", "Chakra UI", "Zustand", "Vite"],
+  },
+  {
+    title: "Desenvolvedor Front-end Pleno | React | React Native",
+    company: "Cria Digital",
+    location: "Viamão, RS",
+    period: "Set 2022 – Ago 2024",
+    description:
+      "Atuação em múltiplos produtos web e mobile: FinanTruck (app de gestão financeira com Redux e validações robustas), Fogo Cruzado (site institucional responsivo com integração de APIs), SOS Água e Luz (site e dashboard com Google Maps e Google Charts), Fiquem Sabendo (portal de acesso a informações governamentais), Agenda Transparente (centralização de agenda de autoridades públicas), Bodetech (app offline-first com Realm e Zustand), FletDesk (plataforma de gestão de frotas com drag and drop, Google Maps e WebSocket) e Automotive Business (blog em Next.js com foco em SEO e performance).",
+    technologies: [
+      "React",
+      "React Native",
+      "Next.js",
+      "TypeScript",
+      "Redux",
+      "Zustand",
+      "Realm",
+      "WebSocket",
+    ],
+  },
+  {
+    title: "Desenvolvedor Front-end Júnior",
+    company: "Cria Digital",
+    location: "Viamão, RS",
+    period: "Set 2021 – Set 2022",
+    description:
+      "GPTW (Great Place to Work) — Participação no desenvolvimento do novo sistema de questionários, com reformulação de interface e estrutura, incluindo implementação de um micro front-end de autenticação com foco em performance, escalabilidade e UX.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Chakra UI",
+      "Zustand",
+      "React Hook Form",
+      "Yup",
+    ],
+  },
+  {
+    title: "Desenvolvedor Front-end",
+    company: "Tá No Bolso",
+    location: "Remoto",
+    period: "Mai 2021 – Ago 2021",
+    description:
+      "Atuação no desenvolvimento de interfaces web com foco em usabilidade e responsividade, contribuindo para a evolução do produto.",
+    technologies: ["React", "JavaScript", "CSS"],
+  },
+  {
+    title: "Desenvolvedor de Software Front-end",
+    company: "ilegra",
+    location: "Porto Alegre, RS",
+    period: "Ago 2020 – Dez 2020",
+    description:
+      "Desenvolvimento de aplicações front-end em projetos corporativos, com foco em qualidade de código, componentização e colaboração em times multidisciplinares.",
+    technologies: ["React", "JavaScript", "TypeScript"],
   },
 ];
 

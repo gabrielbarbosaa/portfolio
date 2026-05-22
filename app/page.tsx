@@ -6,10 +6,12 @@ import { Skills } from "@/components/Skills";
 import { Resume } from "@/components/Resume";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { HudCorners } from "@/components/ui/HudCorners";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <HudCorners />
       <Navbar />
       <main>
         <Hero />
