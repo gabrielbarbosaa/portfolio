@@ -1,3 +1,5 @@
+import type { ExpertiseKey } from "@/data/skills";
+
 export type Lang = "pt" | "en" | "es";
 
 export const LANGS: { code: Lang; label: string }[] = [
@@ -7,716 +9,600 @@ export const LANGS: { code: Lang; label: string }[] = [
 ];
 
 export interface Dictionary {
-  header: {
-    operator: string;
-    nav: {
-      console: string;
-      intel: string;
-      missions: string;
-      stack: string;
-      logbook: string;
-      channel: string;
-    };
-    menuLabel: string;
+  nav: {
+    about: string;
+    expertise: string;
+    projects: string;
+    experience: string;
+    contact: string;
+    blog: string;
+    openMenu: string;
+    closeMenu: string;
+    toggleTheme: string;
+    language: string;
   };
   hero: {
-    transmission: string;
-    handshake: string;
-    intro: {
-      line1: string;
-      line2: string;
-      tags: string;
-    };
-    cta: {
-      primary: string;
-      secondary: string;
-    };
-    scroll: string;
-    telemetry: {
-      status: { label: string; value: string; detail: string };
-      role: { label: string; value: string; detail: string };
-      uptime: { label: string; value: string; detail: string };
-      coordinates: string;
-    };
+    available: string;
+    role: string;
+    summary: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    location: string;
+    stats: { value: string; label: string }[];
   };
-  ticker: string[];
   about: {
-    section: { label: string; title: string; subtitle: string };
-    briefing: string;
-    paragraph1: string;
-    paragraph2: string;
-    skillGroups: {
-      frontend: string;
-      mobile: string;
-      backend: string;
-      tests: string;
-    };
-    telemetry: string;
-    stats: {
-      service: string;
-      missions: string;
-      partners: string;
-      remote: string;
-    };
-  };
-  projects: {
-    section: { label: string; title: string; subtitle: string };
-    archive: { label: string; description: string; cta: string };
-    mission: string;
-    open: string;
-  };
-  archive: {
-    backToConsole: string;
     label: string;
-    entries: string;
+    title: string;
+    paragraphs: string[];
+    howIWork: string;
+    softSkills: string[];
+    education: string;
+    inProgress: string;
+  };
+  expertise: {
+    label: string;
     title: string;
     subtitle: string;
+    groups: Record<ExpertiseKey, { title: string; description: string }>;
+  };
+  projects: {
+    label: string;
+    title: string;
+    subtitle: string;
+    viewAll: string;
+    viewProject: string;
+    allTitle: string;
+    allSubtitle: string;
+    backHome: string;
+    count: string;
   };
   projectDetail: {
-    backToIndex: string;
-    mission: string;
-    preview: string;
+    back: string;
     role: string;
-    tenure: string;
+    period: string;
     client: string;
-    briefing: string;
+    overview: string;
     stack: string;
-    deliverables: string;
+    features: string;
     challenges: string;
-    accessBuild: string;
-    allMissions: string;
-    openChannel: string;
+    live: string;
+    allProjects: string;
+    contact: string;
   };
-  skills: {
-    section: { label: string; title: string; subtitle: string };
-    coreFrameworks: string;
-    tools: string;
-    methodologies: string;
-  };
-  resume: {
-    section: { label: string; title: string; subtitle: string };
-    timeline: string;
-    training: string;
-    active: string;
-    archived: string;
+  experience: {
+    label: string;
+    title: string;
+    subtitle: string;
+    current: string;
     downloadCv: string;
   };
   contact: {
-    section: { label: string; title: string; subtitle: string };
-    channelOpen: string;
-    headline: string;
-    description: string;
-    schedule: string;
-    location: string;
-    response: string;
-    echo: string;
-    echoLine: string;
-    echoCaption: string;
-    cards: {
-      email: { code: string; title: string; desc: string; label: string };
-      whatsapp: { code: string; title: string; desc: string; label: string };
-      github: { code: string; title: string; desc: string; label: string };
-      linkedin: { code: string; title: string; desc: string; label: string };
-    };
+    label: string;
+    title: string;
+    subtitle: string;
+    emailCta: string;
+    copy: string;
+    copied: string;
   };
   footer: {
-    operatorTagline: string;
-    coordinates: string;
-    channels: string;
+    tagline: string;
     rights: string;
-    crafted: string;
+    built: string;
+  };
+  blog: {
+    label: string;
+    title: string;
+    subtitle: string;
+    back: string;
+    draft: string;
+    minRead: string;
+    empty: string;
+    ptOnly: string;
+  };
+  palette: {
+    trigger: string;
+    placeholder: string;
+    empty: string;
+    groups: { navigation: string; projects: string; actions: string; links: string };
+    allProjects: string;
+    copyEmail: string;
+    emailCopied: string;
+    downloadCv: string;
+    toggleTheme: string;
+    language: string;
+    hintNavigate: string;
+    hintSelect: string;
+    hintClose: string;
   };
 }
 
 export const dictionaries: Record<Lang, Dictionary> = {
   pt: {
-    header: {
-      operator: "Operator",
-      nav: {
-        console: "Console",
-        intel: "Intel",
-        missions: "Missões",
-        stack: "Stack",
-        logbook: "Histórico",
-        channel: "Canal",
-      },
-      menuLabel: "Menu",
+    nav: {
+      about: "Sobre",
+      expertise: "Expertise",
+      projects: "Projetos",
+      experience: "Experiência",
+      contact: "Contato",
+      blog: "Blog",
+      openMenu: "Abrir menu",
+      closeMenu: "Fechar menu",
+      toggleTheme: "Alternar tema",
+      language: "Idioma",
     },
     hero: {
-      transmission: "TRANSMISSÃO /001",
-      handshake: "Iniciando handshake…",
-      intro: {
-        line1: "Engenheiro de interfaces operando",
-        line2: "na fronteira",
-        tags: "▸ React · Next.js · React Native · TypeScript",
-      },
-      cta: {
-        primary: "Ver Missões",
-        secondary: "Abrir Canal",
-      },
-      scroll: "scroll · descer para logs",
-      telemetry: {
-        status: {
-          label: "STATUS",
-          value: "ONLINE",
-          detail: "Disponível para novos projetos",
-        },
-        role: {
-          label: "FUNÇÃO",
-          value: "Sr. FE Engineer",
-          detail: "ATF · Internet Banking & Mobile",
-        },
-        uptime: {
-          label: "UPTIME",
-          value: "5y+ em serviço",
-          detail: "20+ missões concluídas",
-        },
-        coordinates: "Coordenadas",
-      },
+      available: "Disponível para novas oportunidades",
+      role: "Software Engineer",
+      summary:
+        "Mais de 5 anos construindo aplicações web e mobile com React, Next.js, React Native e TypeScript. Hoje cuido da arquitetura do Internet Banking da ATF Credit e atuo também no back-end, com serviços em Java e Python.",
+      ctaPrimary: "Ver projetos",
+      ctaSecondary: "Fale comigo",
+      location: "Porto Alegre, Brasil",
+      stats: [
+        { value: "5+", label: "anos de experiência" },
+        { value: "20+", label: "projetos em produção" },
+        { value: "10+", label: "clientes e marcas atendidos" },
+        { value: "Pix · TED", label: "fluxos bancários críticos" },
+      ],
     },
-    ticker: [
-      "SISTEMA ONLINE",
-      "STATUS: DISPONÍVEL",
-      "LAT -30.0277 · LON -51.2287",
-      "UTC-03 · PORTO ALEGRE",
-      "STACK: REACT · NEXT · RN · TS",
-      "CANAL ABERTO — ACEITANDO TRANSMISSÕES",
-      "UPTIME 5Y+",
-      "REMOTO — MUNDIAL",
-    ],
     about: {
-      section: {
-        label: "Intel",
-        title: "Perfil do operador",
-        subtitle:
-          "Engenheiro de interfaces com cinco anos de campo, especializado em construir sistemas web e mobile resilientes — atualmente operando o front-end das plataformas bancárias da ATF.",
-      },
-      briefing: "Briefing",
-      paragraph1:
-        "Desenvolvedor sênior com **5+ anos** no front-end e mobile, atualmente liderando tecnicamente o ecossistema do **Internet Banking e App** da ATF — incluindo decisões de arquitetura, padronização e fluxos críticos como autenticação e transações.",
-      paragraph2:
-        "Domínio sólido em **React**, **Next.js** e **React Native**, com foco em TypeScript, performance, acessibilidade e componentização escalável.",
-      skillGroups: {
-        frontend: "FRONTEND",
-        mobile: "MOBILE",
-        backend: "BACKEND",
-        tests: "TESTES",
-      },
-      telemetry: "Telemetria",
-      stats: {
-        service: "em serviço",
-        missions: "missões deployadas",
-        partners: "agências e bancos",
-        remote: "operações remotas",
+      label: "Sobre",
+      title: "Engenharia com foco em produto, da interface ao serviço.",
+      paragraphs: [
+        "Sou Software Engineer com **mais de 5 anos** de experiência construindo e evoluindo aplicações web e mobile. Minha base é o front-end (**React, Next.js, React Native e TypeScript**), com atuação em arquitetura, micro front-ends e governança técnica.",
+        "Na **ATF Credit**, sou responsável pela arquitetura do front-end do Internet Banking e das aplicações mobile, incluindo fluxos críticos como autenticação, sessão, **TED e Pix**. Também atuo no back-end com **Java e Python**, onde desenvolvi um serviço de comunicação para e-mails, notificações e códigos OTP.",
+        "Gosto de decisões técnicas bem fundamentadas, código legível e times que compartilham conhecimento. Por isso, code review e boas práticas fazem parte do meu dia a dia.",
+      ],
+      howIWork: "Como eu trabalho",
+      softSkills: [
+        "Comunicação técnica",
+        "Colaboração multidisciplinar",
+        "Autonomia",
+        "Resolução de problemas",
+        "Pensamento analítico",
+        "Visão de produto",
+        "Compromisso com qualidade",
+      ],
+      education: "Formação",
+      inProgress: "em andamento",
+    },
+    expertise: {
+      label: "Expertise",
+      title: "O que eu faço",
+      subtitle:
+        "O front-end continua sendo minha base, e o back-end tem ganhado cada vez mais espaço no meu trabalho.",
+      groups: {
+        frontend: {
+          title: "Front-end",
+          description:
+            "Interfaces rápidas, acessíveis e escaláveis, com SSR/SSG e atenção a SEO e Core Web Vitals.",
+        },
+        backend: {
+          title: "Back-end",
+          description:
+            "Serviços e APIs REST em Java, Python e Node.js/Nest.js, com PostgreSQL e MongoDB. Inclui disparo de e-mails, notificações e OTP.",
+        },
+        mobile: {
+          title: "Mobile",
+          description:
+            "Apps em React Native com navegação fluida, persistência local e arquitetura offline-first.",
+        },
+        architecture: {
+          title: "Arquitetura & qualidade",
+          description:
+            "Micro front-ends, padrões de código, componentização e code review para times que crescem.",
+        },
+        integrations: {
+          title: "APIs & integrações",
+          description:
+            "Consumo de APIs, tempo real com WebSocket, mapas, gráficos e distribuição via CDN.",
+        },
+        state: {
+          title: "Estado & formulários",
+          description:
+            "Estado previsível e formulários com validação tipada de ponta a ponta.",
+        },
       },
     },
     projects: {
-      section: {
-        label: "Missões",
-        title: "Trabalhos em produção",
-        subtitle:
-          "Missões concluídas em produção — bancos, fintechs, agências e plataformas de conteúdo.",
-      },
-      archive: {
-        label: "Archive",
-        description: "Catálogo completo com todas as missões deployadas.",
-        cta: "Acessar archive",
-      },
-      mission: "MISSÃO",
-      open: "Abrir",
-    },
-    archive: {
-      backToConsole: "Voltar ao console",
-      label: "Archive / Índice completo",
-      entries: "entradas",
-      title: "Todas as missões",
+      label: "Projetos",
+      title: "Trabalhos selecionados",
       subtitle:
-        "Coleção completa das operações executadas — produtos bancários, fintechs, redes sociais, plataformas de conteúdo e ferramentas internas.",
+        "Produtos em produção para fintechs, agências, varejo e plataformas de conteúdo.",
+      viewAll: "Ver todos os projetos",
+      viewProject: "Ver detalhes",
+      allTitle: "Todos os projetos",
+      allSubtitle:
+        "Produtos bancários, plataformas de investimento, redes sociais, e-commerce, apps mobile e ferramentas internas.",
+      backHome: "Voltar ao início",
+      count: "projetos",
     },
     projectDetail: {
-      backToIndex: "Índice do archive",
-      mission: "MISSÃO",
-      preview: "◐ PREVIEW · COVER",
-      role: "Função",
-      tenure: "Período",
+      back: "Todos os projetos",
+      role: "Papel",
+      period: "Período",
       client: "Cliente",
-      briefing: "Briefing",
-      stack: "Stack utilizada",
-      deliverables: "Principais entregas",
-      challenges: "Desafios de engenharia",
-      accessBuild: "Acessar build ao vivo",
-      allMissions: "Todas as missões",
-      openChannel: "Abrir canal",
+      overview: "Visão geral",
+      stack: "Stack",
+      features: "Principais entregas",
+      challenges: "Desafios técnicos",
+      live: "Ver projeto online",
+      allProjects: "Todos os projetos",
+      contact: "Vamos conversar",
     },
-    skills: {
-      section: {
-        label: "Stack",
-        title: "Arsenal de combate",
-        subtitle:
-          "Tecnologias, frameworks e metodologias usadas em produção diária.",
-      },
-      coreFrameworks: "Frameworks principais",
-      tools: "Ferramentas",
-      methodologies: "Metodologias",
-    },
-    resume: {
-      section: {
-        label: "Histórico",
-        title: "Histórico de missões",
-        subtitle:
-          "Registro cronológico das operações executadas — empresas, papéis e stack utilizada.",
-      },
-      timeline: "Linha do tempo",
-      training: "Registros de formação",
-      active: "ATIVO",
-      archived: "ARQUIVADO",
-      downloadCv: "Baixar CV",
+    experience: {
+      label: "Experiência",
+      title: "Trajetória profissional",
+      subtitle:
+        "Da agência ao setor bancário: projetos web, mobile e, mais recentemente, back-end.",
+      current: "Atual",
+      downloadCv: "Baixar currículo",
     },
     contact: {
-      section: {
-        label: "Canal",
-        title: "Transmissão aberta",
-        subtitle:
-          "Pronto para colaborar em novas missões — produto, banco digital, plataformas web e mobile.",
-      },
-      channelOpen: "Canal aberto",
-      headline: "Aceitando novas operações remotas.",
-      description:
-        "Disponível para contratos full-time, freelas e consultorias técnicas em front-end e mobile.",
-      schedule: "Seg–Sex · 09–18h",
-      location: "UTC-03 · Porto Alegre, BR",
-      response: "Resposta em até 24h",
-      echo: "Resposta de eco",
-      echoLine: "“Toda missão começa com um sinal claro.”",
-      echoCaption: "— escolha o canal abaixo e envie sua transmissão.",
-      cards: {
-        email: {
-          code: "TX/01",
-          title: "Email",
-          desc: "Canal principal · propostas formais",
-          label: "Abrir transmissão",
-        },
-        whatsapp: {
-          code: "TX/02",
-          title: "WhatsApp",
-          desc: "Frequência aberta · respostas rápidas",
-          label: "Canal de voz",
-        },
-        github: {
-          code: "TX/03",
-          title: "GitHub",
-          desc: "Repositórios e contribuições",
-          label: "Inspecionar commits",
-        },
-        linkedin: {
-          code: "TX/04",
-          title: "LinkedIn",
-          desc: "Rede profissional",
-          label: "Estabelecer link",
-        },
-      },
+      label: "Contato",
+      title: "Vamos construir algo juntos?",
+      subtitle:
+        "Aberto a oportunidades como Software Engineer, projetos freelance e boas conversas sobre engenharia. Respondo em até 24h.",
+      emailCta: "Enviar e-mail",
+      copy: "Copiar e-mail",
+      copied: "Copiado!",
     },
     footer: {
-      operatorTagline:
-        "Console operativo · Sr Front-End & Mobile · Porto Alegre, BR",
-      coordinates: "Coordenadas",
-      channels: "Canais",
-      rights: "© {year} GB · TODAS AS TRANSMISSÕES RESERVADAS",
-      crafted: "Construído com",
+      tagline: "Software Engineer · Porto Alegre, BR",
+      rights: "© {year} Gabriel Barbosa.",
+      built: "Feito com Next.js e Tailwind CSS.",
+    },
+    blog: {
+      label: "Blog",
+      title: "Notas técnicas",
+      subtitle:
+        "Textos sobre engenharia de software, front-end, back-end e o que venho aprendendo no caminho.",
+      back: "Voltar ao blog",
+      draft: "Rascunho",
+      minRead: "min de leitura",
+      empty: "Nenhum post publicado ainda.",
+      ptOnly: "Os posts estão disponíveis apenas em português.",
+    },
+    palette: {
+      trigger: "Buscar",
+      placeholder: "Busque uma página, projeto ou ação…",
+      empty: "Nada encontrado.",
+      groups: { navigation: "Navegação", projects: "Projetos", actions: "Ações", links: "Links" },
+      allProjects: "Todos os projetos",
+      copyEmail: "Copiar e-mail",
+      emailCopied: "E-mail copiado!",
+      downloadCv: "Baixar currículo",
+      toggleTheme: "Alternar tema claro/escuro",
+      language: "Idioma",
+      hintNavigate: "navegar",
+      hintSelect: "abrir",
+      hintClose: "fechar",
     },
   },
 
   en: {
-    header: {
-      operator: "Operator",
-      nav: {
-        console: "Console",
-        intel: "Intel",
-        missions: "Missions",
-        stack: "Stack",
-        logbook: "Logbook",
-        channel: "Channel",
-      },
-      menuLabel: "Menu",
+    nav: {
+      about: "About",
+      expertise: "Expertise",
+      projects: "Projects",
+      experience: "Experience",
+      contact: "Contact",
+      blog: "Blog",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      toggleTheme: "Toggle theme",
+      language: "Language",
     },
     hero: {
-      transmission: "TRANSMISSION /001",
-      handshake: "Initiating handshake…",
-      intro: {
-        line1: "Interface engineer operating",
-        line2: "at the edge of",
-        tags: "▸ React · Next.js · React Native · TypeScript",
-      },
-      cta: {
-        primary: "View Missions",
-        secondary: "Open Channel",
-      },
-      scroll: "scroll · descend to logs",
-      telemetry: {
-        status: {
-          label: "STATUS",
-          value: "ONLINE",
-          detail: "Available for new projects",
-        },
-        role: {
-          label: "ROLE",
-          value: "Sr. FE Engineer",
-          detail: "ATF · Internet Banking & Mobile",
-        },
-        uptime: {
-          label: "UPTIME",
-          value: "5y+ in service",
-          detail: "20+ missions completed",
-        },
-        coordinates: "Coordinates",
-      },
+      available: "Open to new opportunities",
+      role: "Software Engineer",
+      summary:
+        "5+ years building web and mobile applications with React, Next.js, React Native and TypeScript. I currently own the front-end architecture of ATF Credit's Internet Banking and also work on the back-end, building services in Java and Python.",
+      ctaPrimary: "View projects",
+      ctaSecondary: "Get in touch",
+      location: "Porto Alegre, Brazil",
+      stats: [
+        { value: "5+", label: "years of experience" },
+        { value: "20+", label: "projects in production" },
+        { value: "10+", label: "clients and brands served" },
+        { value: "Pix · TED", label: "critical banking flows" },
+      ],
     },
-    ticker: [
-      "SYSTEM ONLINE",
-      "STATUS: AVAILABLE",
-      "LAT -30.0277 · LON -51.2287",
-      "UTC-03 · PORTO ALEGRE",
-      "STACK: REACT · NEXT · RN · TS",
-      "CHANNEL OPEN — ACCEPTING TRANSMISSIONS",
-      "UPTIME 5Y+",
-      "REMOTE — WORLDWIDE",
-    ],
     about: {
-      section: {
-        label: "Intel",
-        title: "Operator profile",
-        subtitle:
-          "Interface engineer with five years in the field, specialized in building resilient web and mobile systems — currently running the front-end of ATF's banking platforms.",
-      },
-      briefing: "Briefing",
-      paragraph1:
-        "Senior developer with **5+ years** in front-end and mobile, currently leading the **Internet Banking and App** ecosystem at ATF — including architecture, standardization, and critical flows like authentication and transactions.",
-      paragraph2:
-        "Strong command of **React**, **Next.js** and **React Native**, focused on TypeScript, performance, accessibility and scalable component design.",
-      skillGroups: {
-        frontend: "FRONTEND",
-        mobile: "MOBILE",
-        backend: "BACKEND",
-        tests: "TESTS",
-      },
-      telemetry: "Telemetry",
-      stats: {
-        service: "in service",
-        missions: "missions deployed",
-        partners: "agencies & banks",
-        remote: "remote ops",
+      label: "About",
+      title: "Product-minded engineering, from interface to service.",
+      paragraphs: [
+        "I'm a Software Engineer with **5+ years** of experience building and evolving web and mobile applications. My foundation is front-end (**React, Next.js, React Native and TypeScript**), with hands-on work in architecture, micro front-ends and technical governance.",
+        "At **ATF Credit**, I own the front-end architecture of the Internet Banking and mobile apps, including critical flows such as authentication, session management, **TED and Pix** transfers. I also work on the back-end with **Java and Python**, where I built a communication service for emails, notifications and OTP codes.",
+        "I value well-reasoned technical decisions, readable code and teams that share knowledge, which is why code review and engineering best practices are part of my daily routine.",
+      ],
+      howIWork: "How I work",
+      softSkills: [
+        "Technical communication",
+        "Cross-functional collaboration",
+        "Autonomy",
+        "Problem solving",
+        "Analytical thinking",
+        "Product mindset",
+        "Commitment to quality",
+      ],
+      education: "Education",
+      inProgress: "in progress",
+    },
+    expertise: {
+      label: "Expertise",
+      title: "What I do",
+      subtitle:
+        "Front-end is still my foundation, and back-end work is taking a growing share of what I do.",
+      groups: {
+        frontend: {
+          title: "Front-end",
+          description:
+            "Fast, accessible and scalable interfaces with SSR/SSG and care for SEO and Core Web Vitals.",
+        },
+        backend: {
+          title: "Back-end",
+          description:
+            "Services and REST APIs in Java, Python and Node.js/Nest.js, backed by PostgreSQL and MongoDB. Including email delivery, notifications and OTP.",
+        },
+        mobile: {
+          title: "Mobile",
+          description:
+            "React Native apps with smooth navigation, local persistence and offline-first architecture.",
+        },
+        architecture: {
+          title: "Architecture & quality",
+          description:
+            "Micro front-ends, code standards, component design and code review for growing teams.",
+        },
+        integrations: {
+          title: "APIs & integrations",
+          description:
+            "API consumption, real-time with WebSocket, maps, charts and CDN-distributed widgets.",
+        },
+        state: {
+          title: "State & forms",
+          description:
+            "Predictable state management and forms with end-to-end typed validation.",
+        },
       },
     },
     projects: {
-      section: {
-        label: "Missions",
-        title: "Deployed work",
-        subtitle:
-          "Missions completed in production — banks, fintechs, agencies and content platforms.",
-      },
-      archive: {
-        label: "Archive",
-        description: "Full catalog of every deployed mission.",
-        cta: "Open archive",
-      },
-      mission: "MISSION",
-      open: "Open",
-    },
-    archive: {
-      backToConsole: "Return to console",
-      label: "Archive / Full Index",
-      entries: "entries",
-      title: "All missions",
+      label: "Projects",
+      title: "Selected work",
       subtitle:
-        "Complete collection of executed operations — banking products, fintechs, social networks, content platforms and internal tools.",
+        "Products in production for fintechs, agencies, retail and content platforms.",
+      viewAll: "View all projects",
+      viewProject: "View details",
+      allTitle: "All projects",
+      allSubtitle:
+        "Banking products, investment platforms, social networks, e-commerce, mobile apps and internal tools.",
+      backHome: "Back to home",
+      count: "projects",
     },
     projectDetail: {
-      backToIndex: "Archive index",
-      mission: "MISSION",
-      preview: "◐ PREVIEW · COVER",
+      back: "All projects",
       role: "Role",
-      tenure: "Tenure",
+      period: "Period",
       client: "Client",
-      briefing: "Briefing",
-      stack: "Stack deployed",
-      deliverables: "Key deliverables",
-      challenges: "Engineering challenges",
-      accessBuild: "Access live build",
-      allMissions: "All missions",
-      openChannel: "Open channel",
+      overview: "Overview",
+      stack: "Stack",
+      features: "Key deliverables",
+      challenges: "Technical challenges",
+      live: "View live project",
+      allProjects: "All projects",
+      contact: "Let's talk",
     },
-    skills: {
-      section: {
-        label: "Stack",
-        title: "Combat-ready toolkit",
-        subtitle:
-          "Technologies, frameworks and methodologies used in daily production.",
-      },
-      coreFrameworks: "Core frameworks",
-      tools: "Tools",
-      methodologies: "Methodologies",
-    },
-    resume: {
-      section: {
-        label: "Logbook",
-        title: "Mission history",
-        subtitle:
-          "Chronological record of executed operations — companies, roles and stack used.",
-      },
-      timeline: "Operations timeline",
-      training: "Training records",
-      active: "ACTIVE",
-      archived: "ARCHIVED",
-      downloadCv: "Download cv",
+    experience: {
+      label: "Experience",
+      title: "Career",
+      subtitle:
+        "From agency work to banking: web, mobile and, more recently, back-end projects.",
+      current: "Current",
+      downloadCv: "Download résumé",
     },
     contact: {
-      section: {
-        label: "Channel",
-        title: "Open transmission",
-        subtitle:
-          "Ready to collaborate on new missions — product, digital banking, web and mobile platforms.",
-      },
-      channelOpen: "Channel open",
-      headline: "Accepting new remote operations.",
-      description:
-        "Available for full-time contracts, freelance and technical consulting in front-end and mobile.",
-      schedule: "Mon–Fri · 9am–6pm",
-      location: "UTC-03 · Porto Alegre, BR",
-      response: "Response within 24h",
-      echo: "Echo response",
-      echoLine: "“Every mission begins with a clear signal.”",
-      echoCaption: "— pick a channel below and send your transmission.",
-      cards: {
-        email: {
-          code: "TX/01",
-          title: "Email",
-          desc: "Main channel · formal proposals",
-          label: "Open transmission",
-        },
-        whatsapp: {
-          code: "TX/02",
-          title: "WhatsApp",
-          desc: "Open frequency · quick replies",
-          label: "Voice channel",
-        },
-        github: {
-          code: "TX/03",
-          title: "GitHub",
-          desc: "Repositories and contributions",
-          label: "Inspect commits",
-        },
-        linkedin: {
-          code: "TX/04",
-          title: "LinkedIn",
-          desc: "Professional network",
-          label: "Establish link",
-        },
-      },
+      label: "Contact",
+      title: "Let's build something together?",
+      subtitle:
+        "Open to Software Engineer roles, freelance projects and good conversations about engineering. I reply within 24h.",
+      emailCta: "Send an email",
+      copy: "Copy email",
+      copied: "Copied!",
     },
     footer: {
-      operatorTagline:
-        "Operative console · Sr Front-End & Mobile · Porto Alegre, BR",
-      coordinates: "Coordinates",
-      channels: "Channels",
-      rights: "© {year} GB · ALL TRANSMISSIONS RESERVED",
-      crafted: "Crafted with",
+      tagline: "Software Engineer · Porto Alegre, BR",
+      rights: "© {year} Gabriel Barbosa.",
+      built: "Built with Next.js and Tailwind CSS.",
+    },
+    blog: {
+      label: "Blog",
+      title: "Engineering notes",
+      subtitle:
+        "Writing about software engineering, front-end, back-end and what I've been learning along the way.",
+      back: "Back to blog",
+      draft: "Draft",
+      minRead: "min read",
+      empty: "No posts published yet.",
+      ptOnly: "Posts are currently available in Portuguese only.",
+    },
+    palette: {
+      trigger: "Search",
+      placeholder: "Search for a page, project or action…",
+      empty: "No results.",
+      groups: { navigation: "Navigation", projects: "Projects", actions: "Actions", links: "Links" },
+      allProjects: "All projects",
+      copyEmail: "Copy email",
+      emailCopied: "Email copied!",
+      downloadCv: "Download résumé",
+      toggleTheme: "Toggle light/dark theme",
+      language: "Language",
+      hintNavigate: "navigate",
+      hintSelect: "open",
+      hintClose: "close",
     },
   },
 
   es: {
-    header: {
-      operator: "Operator",
-      nav: {
-        console: "Consola",
-        intel: "Intel",
-        missions: "Misiones",
-        stack: "Stack",
-        logbook: "Bitácora",
-        channel: "Canal",
-      },
-      menuLabel: "Menú",
+    nav: {
+      about: "Sobre mí",
+      expertise: "Expertise",
+      projects: "Proyectos",
+      experience: "Experiencia",
+      contact: "Contacto",
+      blog: "Blog",
+      openMenu: "Abrir menú",
+      closeMenu: "Cerrar menú",
+      toggleTheme: "Cambiar tema",
+      language: "Idioma",
     },
     hero: {
-      transmission: "TRANSMISIÓN /001",
-      handshake: "Iniciando handshake…",
-      intro: {
-        line1: "Ingeniero de interfaces operando",
-        line2: "en la frontera",
-        tags: "▸ React · Next.js · React Native · TypeScript",
-      },
-      cta: {
-        primary: "Ver Misiones",
-        secondary: "Abrir Canal",
-      },
-      scroll: "scroll · descender al logbook",
-      telemetry: {
-        status: {
-          label: "ESTADO",
-          value: "EN LÍNEA",
-          detail: "Disponible para nuevos proyectos",
-        },
-        role: {
-          label: "ROL",
-          value: "Sr. FE Engineer",
-          detail: "ATF · Internet Banking & Mobile",
-        },
-        uptime: {
-          label: "UPTIME",
-          value: "5+ años en servicio",
-          detail: "20+ misiones completadas",
-        },
-        coordinates: "Coordenadas",
-      },
+      available: "Disponible para nuevas oportunidades",
+      role: "Software Engineer",
+      summary:
+        "Más de 5 años construyendo aplicaciones web y mobile con React, Next.js, React Native y TypeScript. Hoy me encargo de la arquitectura del Internet Banking de ATF Credit y también trabajo en el back-end, con servicios en Java y Python.",
+      ctaPrimary: "Ver proyectos",
+      ctaSecondary: "Hablemos",
+      location: "Porto Alegre, Brasil",
+      stats: [
+        { value: "5+", label: "años de experiencia" },
+        { value: "20+", label: "proyectos en producción" },
+        { value: "10+", label: "clientes y marcas atendidos" },
+        { value: "Pix · TED", label: "flujos bancarios críticos" },
+      ],
     },
-    ticker: [
-      "SISTEMA EN LÍNEA",
-      "ESTADO: DISPONIBLE",
-      "LAT -30.0277 · LON -51.2287",
-      "UTC-03 · PORTO ALEGRE",
-      "STACK: REACT · NEXT · RN · TS",
-      "CANAL ABIERTO — ACEPTANDO TRANSMISIONES",
-      "UPTIME 5A+",
-      "REMOTO — GLOBAL",
-    ],
     about: {
-      section: {
-        label: "Intel",
-        title: "Perfil del operador",
-        subtitle:
-          "Ingeniero de interfaces con cinco años de campo, especializado en construir sistemas web y mobile resilientes — actualmente operando el front-end de las plataformas bancarias de ATF.",
-      },
-      briefing: "Briefing",
-      paragraph1:
-        "Desarrollador senior con **5+ años** en front-end y mobile, actualmente liderando técnicamente el ecosistema del **Internet Banking y App** de ATF — incluyendo decisiones de arquitectura, estandarización y flujos críticos como autenticación y transacciones.",
-      paragraph2:
-        "Dominio sólido en **React**, **Next.js** y **React Native**, con foco en TypeScript, rendimiento, accesibilidad y componentes escalables.",
-      skillGroups: {
-        frontend: "FRONTEND",
-        mobile: "MOBILE",
-        backend: "BACKEND",
-        tests: "TESTS",
-      },
-      telemetry: "Telemetría",
-      stats: {
-        service: "en servicio",
-        missions: "misiones desplegadas",
-        partners: "agencias y bancos",
-        remote: "operaciones remotas",
+      label: "Sobre mí",
+      title: "Ingeniería con foco en producto, de la interfaz al servicio.",
+      paragraphs: [
+        "Soy Software Engineer con **más de 5 años** de experiencia construyendo y evolucionando aplicaciones web y mobile. Mi base es el front-end (**React, Next.js, React Native y TypeScript**), con experiencia en arquitectura, micro front-ends y gobernanza técnica.",
+        "En **ATF Credit** soy responsable de la arquitectura del front-end del Internet Banking y de las aplicaciones mobile, incluyendo flujos críticos como autenticación, sesión, **TED y Pix**. También trabajo en el back-end con **Java y Python**, donde desarrollé un servicio de comunicación para e-mails, notificaciones y códigos OTP.",
+        "Me gustan las decisiones técnicas bien fundamentadas, el código legible y los equipos que comparten conocimiento. Por eso el code review y las buenas prácticas forman parte de mi día a día.",
+      ],
+      howIWork: "Cómo trabajo",
+      softSkills: [
+        "Comunicación técnica",
+        "Colaboración multidisciplinaria",
+        "Autonomía",
+        "Resolución de problemas",
+        "Pensamiento analítico",
+        "Visión de producto",
+        "Compromiso con la calidad",
+      ],
+      education: "Formación",
+      inProgress: "en curso",
+    },
+    expertise: {
+      label: "Expertise",
+      title: "Lo que hago",
+      subtitle:
+        "El front-end sigue siendo mi base, y el back-end gana cada vez más espacio en mi trabajo.",
+      groups: {
+        frontend: {
+          title: "Front-end",
+          description:
+            "Interfaces rápidas, accesibles y escalables, con SSR/SSG y atención a SEO y Core Web Vitals.",
+        },
+        backend: {
+          title: "Back-end",
+          description:
+            "Servicios y APIs REST en Java, Python y Node.js/Nest.js, con PostgreSQL y MongoDB. Incluye envío de e-mails, notificaciones y OTP.",
+        },
+        mobile: {
+          title: "Mobile",
+          description:
+            "Apps en React Native con navegación fluida, persistencia local y arquitectura offline-first.",
+        },
+        architecture: {
+          title: "Arquitectura y calidad",
+          description:
+            "Micro front-ends, estándares de código, componentización y code review para equipos que crecen.",
+        },
+        integrations: {
+          title: "APIs e integraciones",
+          description:
+            "Consumo de APIs, tiempo real con WebSocket, mapas, gráficos y distribución vía CDN.",
+        },
+        state: {
+          title: "Estado y formularios",
+          description:
+            "Estado predecible y formularios con validación tipada de punta a punta.",
+        },
       },
     },
     projects: {
-      section: {
-        label: "Misiones",
-        title: "Trabajos desplegados",
-        subtitle:
-          "Misiones completadas en producción — bancos, fintechs, agencias y plataformas de contenido.",
-      },
-      archive: {
-        label: "Archivo",
-        description: "Catálogo completo de todas las misiones desplegadas.",
-        cta: "Acceder al archivo",
-      },
-      mission: "MISIÓN",
-      open: "Abrir",
-    },
-    archive: {
-      backToConsole: "Volver a la consola",
-      label: "Archivo / Índice completo",
-      entries: "entradas",
-      title: "Todas las misiones",
+      label: "Proyectos",
+      title: "Trabajos seleccionados",
       subtitle:
-        "Colección completa de las operaciones ejecutadas — productos bancarios, fintechs, redes sociales, plataformas de contenido y herramientas internas.",
+        "Productos en producción para fintechs, agencias, retail y plataformas de contenido.",
+      viewAll: "Ver todos los proyectos",
+      viewProject: "Ver detalles",
+      allTitle: "Todos los proyectos",
+      allSubtitle:
+        "Productos bancarios, plataformas de inversión, redes sociales, e-commerce, apps mobile y herramientas internas.",
+      backHome: "Volver al inicio",
+      count: "proyectos",
     },
     projectDetail: {
-      backToIndex: "Índice del archivo",
-      mission: "MISIÓN",
-      preview: "◐ PREVIEW · COVER",
+      back: "Todos los proyectos",
       role: "Rol",
-      tenure: "Período",
+      period: "Período",
       client: "Cliente",
-      briefing: "Briefing",
-      stack: "Stack utilizada",
-      deliverables: "Entregas principales",
-      challenges: "Desafíos de ingeniería",
-      accessBuild: "Acceder al build en vivo",
-      allMissions: "Todas las misiones",
-      openChannel: "Abrir canal",
+      overview: "Visión general",
+      stack: "Stack",
+      features: "Entregas principales",
+      challenges: "Desafíos técnicos",
+      live: "Ver proyecto en línea",
+      allProjects: "Todos los proyectos",
+      contact: "Hablemos",
     },
-    skills: {
-      section: {
-        label: "Stack",
-        title: "Kit de combate",
-        subtitle:
-          "Tecnologías, frameworks y metodologías usadas en producción diaria.",
-      },
-      coreFrameworks: "Frameworks principales",
-      tools: "Herramientas",
-      methodologies: "Metodologías",
-    },
-    resume: {
-      section: {
-        label: "Bitácora",
-        title: "Historial de misiones",
-        subtitle:
-          "Registro cronológico de las operaciones ejecutadas — empresas, roles y stack utilizada.",
-      },
-      timeline: "Línea de tiempo",
-      training: "Registros de formación",
-      active: "ACTIVO",
-      archived: "ARCHIVADO",
+    experience: {
+      label: "Experiencia",
+      title: "Trayectoria profesional",
+      subtitle:
+        "De la agencia al sector bancario: proyectos web, mobile y, más recientemente, back-end.",
+      current: "Actual",
       downloadCv: "Descargar CV",
     },
     contact: {
-      section: {
-        label: "Canal",
-        title: "Transmisión abierta",
-        subtitle:
-          "Listo para colaborar en nuevas misiones — producto, banca digital, plataformas web y mobile.",
-      },
-      channelOpen: "Canal abierto",
-      headline: "Aceptando nuevas operaciones remotas.",
-      description:
-        "Disponible para contratos full-time, freelance y consultorías técnicas en front-end y mobile.",
-      schedule: "Lun–Vie · 09–18h",
-      location: "UTC-03 · Porto Alegre, BR",
-      response: "Respuesta en hasta 24h",
-      echo: "Eco de respuesta",
-      echoLine: "«Toda misión comienza con una señal clara.»",
-      echoCaption: "— elige el canal abajo y envía tu transmisión.",
-      cards: {
-        email: {
-          code: "TX/01",
-          title: "Email",
-          desc: "Canal principal · propuestas formales",
-          label: "Abrir transmisión",
-        },
-        whatsapp: {
-          code: "TX/02",
-          title: "WhatsApp",
-          desc: "Frecuencia abierta · respuestas rápidas",
-          label: "Canal de voz",
-        },
-        github: {
-          code: "TX/03",
-          title: "GitHub",
-          desc: "Repositorios y contribuciones",
-          label: "Inspeccionar commits",
-        },
-        linkedin: {
-          code: "TX/04",
-          title: "LinkedIn",
-          desc: "Red profesional",
-          label: "Establecer enlace",
-        },
-      },
+      label: "Contacto",
+      title: "¿Construimos algo juntos?",
+      subtitle:
+        "Abierto a oportunidades como Software Engineer, proyectos freelance y buenas conversaciones sobre ingeniería. Respondo en hasta 24h.",
+      emailCta: "Enviar e-mail",
+      copy: "Copiar e-mail",
+      copied: "¡Copiado!",
     },
     footer: {
-      operatorTagline:
-        "Consola operativa · Sr Front-End & Mobile · Porto Alegre, BR",
-      coordinates: "Coordenadas",
-      channels: "Canales",
-      rights: "© {year} GB · TODAS LAS TRANSMISIONES RESERVADAS",
-      crafted: "Construido con",
+      tagline: "Software Engineer · Porto Alegre, BR",
+      rights: "© {year} Gabriel Barbosa.",
+      built: "Hecho con Next.js y Tailwind CSS.",
+    },
+    blog: {
+      label: "Blog",
+      title: "Notas técnicas",
+      subtitle:
+        "Textos sobre ingeniería de software, front-end, back-end y lo que voy aprendiendo en el camino.",
+      back: "Volver al blog",
+      draft: "Borrador",
+      minRead: "min de lectura",
+      empty: "Todavía no hay posts publicados.",
+      ptOnly: "Por ahora los posts están disponibles solo en portugués.",
+    },
+    palette: {
+      trigger: "Buscar",
+      placeholder: "Busca una página, proyecto o acción…",
+      empty: "Sin resultados.",
+      groups: { navigation: "Navegación", projects: "Proyectos", actions: "Acciones", links: "Enlaces" },
+      allProjects: "Todos los proyectos",
+      copyEmail: "Copiar e-mail",
+      emailCopied: "¡E-mail copiado!",
+      downloadCv: "Descargar CV",
+      toggleTheme: "Cambiar tema claro/oscuro",
+      language: "Idioma",
+      hintNavigate: "navegar",
+      hintSelect: "abrir",
+      hintClose: "cerrar",
     },
   },
 };
