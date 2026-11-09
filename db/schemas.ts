@@ -50,6 +50,27 @@ export const postSchema = z.object({
   body: z.string(),
 });
 
+/**
+ * Visita registrada pelo tracker do site público (ver app/api/track).
+ * Sem IP, sem cookie, sem identificador persistente entre visitas — só o
+ * suficiente para números agregados (páginas, origem, dispositivo, idioma, país).
+ */
+export const pageviewInputSchema = z.object({
+  path: z.string().max(512),
+  referrer: z.string().max(1024).optional(),
+  lang: z.enum(["pt", "en", "es"]).optional(),
+  device: z.enum(["mobile", "tablet", "desktop"]),
+});
+
+export const pageviewSchema = pageviewInputSchema.omit({ referrer: true }).extend({
+  referrerHost: z.string().optional(),
+  country: z.string().length(2).optional(),
+  createdAt: z.date(),
+});
+
+export type PageviewInput = z.infer<typeof pageviewInputSchema>;
+export type Pageview = z.infer<typeof pageviewSchema>;
+
 /** O que o formulário do admin envia: sem os campos que o servidor calcula. */
 export const projectInputSchema = projectSchema.omit({ order: true, featuredOrder: true });
 export const postInputSchema = postSchema.omit({ readingMinutes: true });

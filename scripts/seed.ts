@@ -61,6 +61,12 @@ async function main() {
     db.collection(COLLECTIONS.projects).createIndex({ order: 1 }),
     db.collection(COLLECTIONS.posts).createIndex({ slug: 1 }, { unique: true }),
     db.collection(COLLECTIONS.posts).createIndex({ published: 1, date: -1 }),
+    db.collection(COLLECTIONS.pageviews).createIndex({ createdAt: -1 }),
+    // Expira visitas antigas sozinho (~13 meses), pra não estourar o free tier do Atlas.
+    db.collection(COLLECTIONS.pageviews).createIndex(
+      { createdAt: 1 },
+      { expireAfterSeconds: 60 * 60 * 24 * 400, name: "createdAt_ttl" }
+    ),
   ]);
 
   await upsertAll(COLLECTIONS.projects, seedProjects, (p) => projectSchema.parse(p));

@@ -3,6 +3,7 @@ import { MongoClient, type Db } from "mongodb";
 export const COLLECTIONS = {
   projects: "projects",
   posts: "posts",
+  pageviews: "pageviews",
 } as const;
 
 declare global {

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { FolderKanban, LayoutDashboard, LogOut, Newspaper } from "lucide-react";
+import { BarChart3, FolderKanban, LayoutDashboard, LogOut, Newspaper } from "lucide-react";
 import { auth } from "@/auth";
 import { signOutAction } from "@/db/mutations";
 
@@ -26,6 +26,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </AdminNavLink>
             <AdminNavLink href="/admin/posts" icon={Newspaper}>
               Blog
+            </AdminNavLink>
+            <AdminNavLink href="/admin/analytics" icon={BarChart3}>
+              Analytics
             </AdminNavLink>
           </nav>
 

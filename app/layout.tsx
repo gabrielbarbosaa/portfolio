@@ -8,6 +8,7 @@ import { SITE_URL } from "@/lib/site";
 import { profile } from "@/data/profile";
 import { getPosts, getProjects } from "@/db/queries";
 import { SiteDataProvider, type SiteData } from "@/components/SiteDataProvider";
+import { PageviewTracker } from "@/components/PageviewTracker";
 import "./globals.css";
 
 const rubik = Rubik({
@@ -135,7 +136,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <I18nProvider>
-            <SiteDataProvider value={siteData}>{children}</SiteDataProvider>
+            <SiteDataProvider value={siteData}>
+              <PageviewTracker />
+              {children}
+            </SiteDataProvider>
           </I18nProvider>
         </ThemeProvider>
         <Analytics />
