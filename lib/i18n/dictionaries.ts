@@ -150,7 +150,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       title: "Engenharia com foco em produto, da interface ao serviço.",
       paragraphs: [
         "Sou Software Engineer com **mais de 5 anos** de experiência construindo e evoluindo aplicações web e mobile. Minha base é o front-end (**React, Next.js, React Native e TypeScript**), com atuação em arquitetura, micro front-ends e governança técnica.",
-        "Na **ATF Credit**, sou responsável pela arquitetura do front-end do Internet Banking e das aplicações mobile, incluindo fluxos críticos como autenticação, sessão, **TED e Pix**. Também atuo no back-end com **Java e Python**, onde desenvolvi um serviço de comunicação para e-mails, notificações e códigos OTP.",
+        "Na **ATF Credit**, montei toda a infraestrutura de front-end do Internet Banking e das aplicações mobile, e desenvolvi os principais fluxos da plataforma — autenticação, **Pix, TED, transferências e limites** de transação. Também atuo no back-end com **Java e Python**, onde desenvolvi um serviço de comunicação para e-mails, notificações e códigos OTP.",
         "Gosto de decisões técnicas bem fundamentadas, código legível e times que compartilham conhecimento. Por isso, code review e boas práticas fazem parte do meu dia a dia.",
       ],
       howIWork: "Como eu trabalho",
@@ -313,7 +313,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       title: "Product-minded engineering, from interface to service.",
       paragraphs: [
         "I'm a Software Engineer with **5+ years** of experience building and evolving web and mobile applications. My foundation is front-end (**React, Next.js, React Native and TypeScript**), with hands-on work in architecture, micro front-ends and technical governance.",
-        "At **ATF Credit**, I own the front-end architecture of the Internet Banking and mobile apps, including critical flows such as authentication, session management, **TED and Pix** transfers. I also work on the back-end with **Java and Python**, where I built a communication service for emails, notifications and OTP codes.",
+        "At **ATF Credit**, I built the entire front-end infrastructure of the Internet Banking platform and its mobile apps, and developed the platform's core flows — authentication, **Pix, TED, transfers and transaction limits**. I also work on the back-end with **Java and Python**, where I built a communication service for emails, notifications and OTP codes.",
         "I value well-reasoned technical decisions, readable code and teams that share knowledge, which is why code review and engineering best practices are part of my daily routine.",
       ],
       howIWork: "How I work",
@@ -476,7 +476,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       title: "Ingeniería con foco en producto, de la interfaz al servicio.",
       paragraphs: [
         "Soy Software Engineer con **más de 5 años** de experiencia construyendo y evolucionando aplicaciones web y mobile. Mi base es el front-end (**React, Next.js, React Native y TypeScript**), con experiencia en arquitectura, micro front-ends y gobernanza técnica.",
-        "En **ATF Credit** soy responsable de la arquitectura del front-end del Internet Banking y de las aplicaciones mobile, incluyendo flujos críticos como autenticación, sesión, **TED y Pix**. También trabajo en el back-end con **Java y Python**, donde desarrollé un servicio de comunicación para e-mails, notificaciones y códigos OTP.",
+        "En **ATF Credit**, armé toda la infraestructura de front-end del Internet Banking y de las aplicaciones mobile, y desarrollé los principales flujos de la plataforma — autenticación, **Pix, TED, transferencias y límites** de transacción. También trabajo en el back-end con **Java y Python**, donde desarrollé un servicio de comunicación para e-mails, notificaciones y códigos OTP.",
         "Me gustan las decisiones técnicas bien fundamentadas, el código legible y los equipos que comparten conocimiento. Por eso el code review y las buenas prácticas forman parte de mi día a día.",
       ],
       howIWork: "Cómo trabajo",
