@@ -5,23 +5,40 @@ import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/db/schemas";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
-export function ProjectCard({ project }: { project: Project }) {
+const TONES = ["primary", "secondary", "accent"] as const;
+type Tone = (typeof TONES)[number];
+
+const toneClasses: Record<Tone, string> = {
+  primary: "bg-primary/10 text-primary",
+  secondary: "bg-secondary/10 text-secondary",
+  accent: "bg-accent/10 text-accent",
+};
+
+export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   const { t, lang } = useI18n();
   const content = project.content[lang];
   const techPreview = project.technologies.slice(0, 4);
   const extra = project.technologies.length - techPreview.length;
+  const tone = TONES[index % TONES.length];
 
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group card card-hover flex h-full flex-col p-6 md:p-7"
+      className="group card flex h-full flex-col p-6 md:p-7"
     >
-      <div className="flex items-center justify-between gap-4 text-xs text-muted">
-        <span className="font-mono">{project.year}</span>
-        {project.client && <span className="truncate">{project.client}</span>}
+      <div className="flex items-center gap-3">
+        <span
+          className={`grid size-9 shrink-0 place-items-center rounded-lg font-mono text-xs font-semibold ${toneClasses[tone]}`}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="flex min-w-0 flex-col text-xs text-muted">
+          <span className="font-mono">{project.year}</span>
+          {project.client && <span className="truncate">{project.client}</span>}
+        </div>
       </div>
 
-      <h3 className="mt-4 text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-primary md:text-2xl">
+      <h3 className="mt-5 text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-primary md:text-2xl">
         {content.title}
       </h3>
 
@@ -38,10 +55,12 @@ export function ProjectCard({ project }: { project: Project }) {
         {extra > 0 && <span className="tag">+{extra}</span>}
       </div>
 
-      <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-primary">
-        {t.projects.viewProject}
-        <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-      </span>
+      <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+        <span className="text-sm font-medium text-primary">{t.projects.viewProject}</span>
+        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-line text-muted transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:border-primary group-hover:bg-primary group-hover:text-on-primary">
+          <ArrowUpRight className="size-4" />
+        </span>
+      </div>
     </Link>
   );
 }

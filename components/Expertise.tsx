@@ -38,7 +38,7 @@ export function Expertise() {
             const Icon = icons[area.icon];
             const copy = t.expertise.groups[area.key];
             return (
-              <ScrollReveal key={area.key} delay={i * 0.05} className="card flex flex-col p-6">
+              <ScrollReveal key={area.key} delay={i * 0.08} className="card flex flex-col p-6" hover>
                 <span
                   className={`grid size-10 place-items-center rounded-lg ${toneClasses[area.tone]}`}
                 >

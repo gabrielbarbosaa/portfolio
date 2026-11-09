@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { PostMeta } from "@/db/schemas";
 import type { Lang } from "@/lib/i18n/dictionaries";
@@ -64,8 +65,8 @@ export function BlogIndex({ posts }: { posts: PostMeta[] }) {
           <ul className="space-y-5">
             {posts.map((post, i) => (
               <li key={post.slug}>
-                <ScrollReveal delay={i * 0.05}>
-                  <Link href={`/blog/${post.slug}`} className="group card card-hover block p-6 md:p-7">
+                <ScrollReveal delay={i * 0.08} hover>
+                  <Link href={`/blog/${post.slug}`} className="group card block p-6 md:p-7">
                     <PostMetaLine post={post} />
                     <h2 className="mt-3 text-xl font-semibold tracking-tight text-fg transition-colors group-hover:text-primary md:text-2xl">
                       {post.title}
@@ -106,18 +107,23 @@ export function BlogPostShell({ post, children }: { post: PostMeta; children: Re
           {t.blog.back}
         </Link>
 
-        <header className="mt-10 border-b border-line pb-10">
+        <motion.header
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-10 border-b border-line pb-10"
+        >
           <PostMetaLine post={post} />
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-fg md:text-5xl">
             {post.title}
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-soft md:text-xl">{post.description}</p>
           <PtOnlyNotice />
-        </header>
+        </motion.header>
 
-        <div className="post-body mt-10" lang="pt-BR">
-          {children}
-        </div>
+        <ScrollReveal className="post-body mt-10" delay={0.1}>
+          <div lang="pt-BR">{children}</div>
+        </ScrollReveal>
       </article>
     </main>
   );

@@ -71,11 +71,18 @@ export function Navbar() {
             <Link
               key={item.id}
               href={item.href}
-              className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 isActive(item.id) ? "text-fg" : "text-muted hover:text-fg"
               }`}
             >
-              {item.label}
+              {isActive(item.id) && (
+                <motion.span
+                  layoutId="nav-active-pill"
+                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                  className="absolute inset-0 rounded-md bg-surface-2"
+                />
+              )}
+              <span className="relative">{item.label}</span>
             </Link>
           ))}
         </nav>

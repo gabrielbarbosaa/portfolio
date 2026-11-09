@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import type { Project } from "@/db/schemas";
 import { useI18n } from "@/lib/i18n/I18nProvider";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function ProjectDetail({ project }: { project: Project }) {
   const { t, lang } = useI18n();
@@ -26,7 +30,12 @@ export function ProjectDetail({ project }: { project: Project }) {
           {t.projectDetail.back}
         </Link>
 
-        <header className="mt-10">
+        <motion.header
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease }}
+          className="mt-10"
+        >
           <h1 className="text-4xl font-semibold tracking-tight text-fg md:text-6xl">
             {details.title}
           </h1>
@@ -56,7 +65,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               <ArrowUpRight className="size-4" />
             </a>
           )}
-        </header>
+        </motion.header>
 
         <Section title={t.projectDetail.overview}>
           <p className="text-lg leading-relaxed text-soft">{details.longDescription}</p>
@@ -118,9 +127,11 @@ export function ProjectDetail({ project }: { project: Project }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-14">
-      <h2 className="mb-5 text-xl font-semibold tracking-tight text-fg">{title}</h2>
-      {children}
-    </section>
+    <ScrollReveal className="mt-14">
+      <section>
+        <h2 className="mb-5 text-xl font-semibold tracking-tight text-fg">{title}</h2>
+        {children}
+      </section>
+    </ScrollReveal>
   );
 }

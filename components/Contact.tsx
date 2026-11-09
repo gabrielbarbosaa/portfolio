@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { ScrollReveal } from "./ui/ScrollReveal";
 import { profile } from "@/data/profile";
@@ -46,31 +47,48 @@ export function Contact() {
                 <Mail className="size-4" />
                 {t.contact.emailCta}
               </a>
-              <button type="button" onClick={copyEmail} className="btn btn-outline" aria-live="polite">
-                {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
-                {copied ? t.contact.copied : t.contact.copy}
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="btn btn-outline overflow-hidden"
+                aria-live="polite"
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={copied ? "copied" : "copy"}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="inline-flex items-center gap-2"
+                  >
+                    {copied ? <Check className="size-4 text-primary" /> : <Copy className="size-4" />}
+                    {copied ? t.contact.copied : t.contact.copy}
+                  </motion.span>
+                </AnimatePresence>
               </button>
               <span className="font-mono text-sm text-muted">{profile.email}</span>
             </div>
 
             <div className="mt-12 grid gap-3 sm:grid-cols-3">
-              {channels.map(({ name, handle, href, Icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-line bg-surface-2 p-4 transition-colors hover:border-line-strong"
-                >
-                  <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-surface text-soft">
-                    <Icon className="size-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-medium text-fg">{name}</span>
-                    <span className="block truncate text-sm text-muted">{handle}</span>
-                  </span>
-                  <ArrowUpRight className="size-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
-                </a>
+              {channels.map(({ name, handle, href, Icon }, i) => (
+                <ScrollReveal key={name} delay={i * 0.08} hover>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-xl border border-line bg-surface-2 p-4 transition-colors hover:border-line-strong"
+                  >
+                    <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-surface text-soft">
+                      <Icon className="size-5" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-fg">{name}</span>
+                      <span className="block truncate text-sm text-muted">{handle}</span>
+                    </span>
+                    <ArrowUpRight className="size-4 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
+                  </a>
+                </ScrollReveal>
               ))}
             </div>
           </div>

@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { animate, motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { profile } from "@/data/profile";
@@ -90,7 +91,7 @@ export function Hero() {
             <div key={stat.label} className="bg-surface p-5 md:p-6">
               <dt className="sr-only">{stat.label}</dt>
               <dd className="text-2xl font-semibold tracking-tight text-fg md:text-3xl">
-                {stat.value}
+                <AnimatedStatValue value={stat.value} />
               </dd>
               <dd className="mt-1 text-sm text-muted">{stat.label}</dd>
             </div>
@@ -120,6 +121,33 @@ function IconLink({
     >
       {children}
     </a>
+  );
+}
+
+/** Conta de 0 até o número do stat ao montar (ex.: "20+" -> 0..20 + "+"). */
+function AnimatedStatValue({ value }: { value: string }) {
+  const match = value.match(/^(\d+)(.*)$/);
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!match) return;
+    const target = Number(match[1]);
+    const controls = animate(0, target, {
+      duration: 1.4,
+      delay: 0.4,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  if (!match) return <>{value}</>;
+  return (
+    <>
+      {display}
+      {match[2]}
+    </>
   );
 }
 

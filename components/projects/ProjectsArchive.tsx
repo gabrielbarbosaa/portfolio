@@ -35,8 +35,8 @@ export function ProjectsArchive({ projects }: { projects: Project[] }) {
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
-            <ScrollReveal key={project.slug} delay={(i % 3) * 0.05} className="h-full">
-              <ProjectCard project={project} />
+            <ScrollReveal key={project.slug} delay={(i % 3) * 0.08} className="h-full" hover>
+              <ProjectCard project={project} index={i} />
             </ScrollReveal>
           ))}
         </div>

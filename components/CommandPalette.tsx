@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -222,104 +223,126 @@ export function CommandPalette() {
       </button>
 
       {mounted &&
-        open &&
         createPortal(
-          <div className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[12vh]">
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" onClick={close} aria-hidden />
-            <div
-              role="dialog"
-              aria-modal="true"
-              aria-label={t.palette.trigger}
-              className="card relative w-full max-w-xl overflow-hidden shadow-[var(--shadow-lg)]"
-              onKeyDown={onKeyDown}
-            >
-              <div className="flex items-center gap-3 border-b border-line px-4">
-                <Search className="size-4 shrink-0 text-muted" />
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={t.palette.placeholder}
-                  className="h-14 w-full bg-transparent text-base text-fg outline-none placeholder:text-dim"
-                  role="combobox"
-                  aria-expanded="true"
-                  aria-controls="command-list"
-                  aria-activedescendant={filtered[active] ? `cmd-${filtered[active].id}` : undefined}
-                  aria-autocomplete="list"
-                  autoComplete="off"
-                  spellCheck={false}
+          <AnimatePresence>
+            {open && (
+              <div className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[12vh]">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"
+                  onClick={close}
+                  aria-hidden
                 />
-                <kbd className="rounded border border-line bg-surface-2 px-1.5 font-mono text-[11px] text-muted">
-                  Esc
-                </kbd>
-              </div>
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={t.palette.trigger}
+                  className="card relative w-full max-w-xl overflow-hidden shadow-[var(--shadow-lg)]"
+                  onKeyDown={onKeyDown}
+                >
+                  <div className="flex items-center gap-3 border-b border-line px-4">
+                    <Search className="size-4 shrink-0 text-muted" />
+                    <input
+                      ref={inputRef}
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder={t.palette.placeholder}
+                      className="h-14 w-full bg-transparent text-base text-fg outline-none placeholder:text-dim"
+                      role="combobox"
+                      aria-expanded="true"
+                      aria-controls="command-list"
+                      aria-activedescendant={filtered[active] ? `cmd-${filtered[active].id}` : undefined}
+                      aria-autocomplete="list"
+                      autoComplete="off"
+                      spellCheck={false}
+                    />
+                    <kbd className="rounded border border-line bg-surface-2 px-1.5 font-mono text-[11px] text-muted">
+                      Esc
+                    </kbd>
+                  </div>
 
-              <ul
-                ref={listRef}
-                id="command-list"
-                role="listbox"
-                className="max-h-[min(60vh,420px)] overflow-y-auto p-2"
-              >
-                {filtered.length === 0 && (
-                  <li className="px-3 py-10 text-center text-sm text-muted">{t.palette.empty}</li>
-                )}
-                {groups.map((group) => {
-                  const items = filtered.filter((c) => c.group === group);
-                  if (items.length === 0) return null;
-                  return (
-                    <li key={group} role="presentation">
-                      <p className="px-3 pt-3 pb-1.5 text-xs font-medium text-dim">
-                        {t.palette.groups[group]}
-                      </p>
-                      <ul role="group">
-                        {items.map((cmd) => {
-                          const index = filtered.indexOf(cmd);
-                          const selected = index === active;
-                          const Icon = cmd.icon;
-                          return (
-                            <li
-                              key={cmd.id}
-                              id={`cmd-${cmd.id}`}
-                              role="option"
-                              aria-selected={selected}
-                              data-index={index}
-                              onMouseMove={() => setActive(index)}
-                              onClick={() => runCommand(cmd)}
-                              className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${
-                                selected ? "bg-primary/10 text-fg" : "text-soft"
-                              }`}
-                            >
-                              <Icon className={`size-4 shrink-0 ${selected ? "text-primary" : "text-muted"}`} />
-                              <span className="truncate">{cmd.label}</span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </li>
-                  );
-                })}
-              </ul>
+                  <ul
+                    ref={listRef}
+                    id="command-list"
+                    role="listbox"
+                    className="max-h-[min(60vh,420px)] overflow-y-auto p-2"
+                  >
+                    {filtered.length === 0 && (
+                      <li className="px-3 py-10 text-center text-sm text-muted">{t.palette.empty}</li>
+                    )}
+                    {groups.map((group) => {
+                      const items = filtered.filter((c) => c.group === group);
+                      if (items.length === 0) return null;
+                      return (
+                        <li key={group} role="presentation">
+                          <p className="px-3 pt-3 pb-1.5 text-xs font-medium text-dim">
+                            {t.palette.groups[group]}
+                          </p>
+                          <ul role="group">
+                            {items.map((cmd) => {
+                              const index = filtered.indexOf(cmd);
+                              const selected = index === active;
+                              const Icon = cmd.icon;
+                              return (
+                                <li
+                                  key={cmd.id}
+                                  id={`cmd-${cmd.id}`}
+                                  role="option"
+                                  aria-selected={selected}
+                                  data-index={index}
+                                  onMouseMove={() => setActive(index)}
+                                  onClick={() => runCommand(cmd)}
+                                  className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${
+                                    selected ? "bg-primary/10 text-fg" : "text-soft"
+                                  }`}
+                                >
+                                  <Icon className={`size-4 shrink-0 ${selected ? "text-primary" : "text-muted"}`} />
+                                  <span className="truncate">{cmd.label}</span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </li>
+                      );
+                    })}
+                  </ul>
 
-              <div className="hidden items-center gap-4 border-t border-line px-4 py-2.5 text-xs text-muted sm:flex">
-                <span><kbd className="font-mono">↑↓</kbd> {t.palette.hintNavigate}</span>
-                <span><kbd className="font-mono">↵</kbd> {t.palette.hintSelect}</span>
-                <span><kbd className="font-mono">esc</kbd> {t.palette.hintClose}</span>
+                  <div className="hidden items-center gap-4 border-t border-line px-4 py-2.5 text-xs text-muted sm:flex">
+                    <span><kbd className="font-mono">↑↓</kbd> {t.palette.hintNavigate}</span>
+                    <span><kbd className="font-mono">↵</kbd> {t.palette.hintSelect}</span>
+                    <span><kbd className="font-mono">esc</kbd> {t.palette.hintClose}</span>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          </div>,
+            )}
+          </AnimatePresence>,
           document.body
         )}
 
       {mounted &&
-        toast &&
         createPortal(
-          <div
-            role="status"
-            className="card fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 px-4 py-2.5 text-sm text-fg shadow-[var(--shadow-lg)]"
-          >
-            <Check className="size-4 text-primary" />
-            {toast}
-          </div>,
+          <AnimatePresence>
+            {toast && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                role="status"
+                className="card fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 px-4 py-2.5 text-sm text-fg shadow-[var(--shadow-lg)]"
+              >
+                <Check className="size-4 text-primary" />
+                {toast}
+              </motion.div>
+            )}
+          </AnimatePresence>,
           document.body
         )}
     </>

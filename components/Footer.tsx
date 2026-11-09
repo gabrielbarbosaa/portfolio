@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
 import { useI18n } from "@/lib/i18n/I18nProvider";
@@ -15,7 +16,13 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line">
+    <motion.footer
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="border-t border-line"
+    >
       <div className="container-page flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="font-semibold text-fg">Gabriel Barbosa</p>
@@ -41,6 +48,6 @@ export function Footer() {
         <p>{rights}</p>
         <p>{t.footer.built}</p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
