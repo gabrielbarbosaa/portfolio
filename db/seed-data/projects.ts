@@ -9,11 +9,11 @@ import type { Project } from "../schemas";
 type SeedProject = Omit<Project, "order" | "featuredOrder">;
 
 /** Ordem dos destaques na home */
-const featuredSlugs = ["communication-service", "eqr-holding", "ulook", "zaply-recipes"];
+const featuredSlugs = ["atf-sociedade-de-credito-direto", "eqr-holding", "ulook", "zaply-recipes"];
 
 const projects: SeedProject[] = [
   {
-    slug: "communication-service",
+    slug: "atf-sociedade-de-credito-direto",
     year: "2026",
     technologies: ["Java", "Python", "REST APIs", "OTP"],
     content: {

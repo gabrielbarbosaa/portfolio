@@ -52,4 +52,4 @@ Para mim, sim. Não precisa virar especialista em back-end, mas entender o que a
 
 Se você é front-end e está pensando em dar esse passo, minha sugestão é começar pequeno: um serviço simples, com um contrato bem definido, testes e logs decentes. O resto vem com o tempo.
 
-<!-- Fechamento: talvez um convite para conversar (LinkedIn) ou um link para o case "Serviço de Comunicação & OTP" em /projects/communication-service. -->
+<!-- Fechamento: talvez um convite para conversar (LinkedIn) ou um link para o case "ATF Sociedade de Crédito Direto" em /projects/atf-sociedade-de-credito-direto. -->
