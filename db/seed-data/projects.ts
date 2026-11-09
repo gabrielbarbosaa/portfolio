@@ -15,16 +15,15 @@ const projects: SeedProject[] = [
   {
     slug: "communication-service",
     year: "2026",
-    client: "Fintech",
     technologies: ["Java", "Python", "REST APIs", "OTP"],
     content: {
       pt: {
-        title: "Serviço de Comunicação & OTP",
+        title: "ATF Sociedade de Crédito Direto",
         description:
-          "Serviço back-end para envio de e-mails, notificações e geração e validação de códigos OTP, usado em fluxos de autenticação de uma plataforma bancária.",
+          "Serviço back-end para envio de e-mails, notificações e geração e validação de códigos OTP, usado nos fluxos de autenticação do Internet Banking.",
         role: "Software Engineer (back-end)",
         longDescription:
-          "Case anonimizado de um serviço de comunicação desenvolvido em Java e Python para uma fintech. O serviço centraliza o disparo de e-mails, o envio de notificações e a geração e validação de códigos OTP (one-time password) usados em fluxos sensíveis, como autenticação e confirmação de operações. Detalhes internos foram omitidos por confidencialidade.",
+          "Serviço de comunicação desenvolvido em Java e Python para a ATF Credit, banco onde atuo como Software Engineer. O serviço centraliza o disparo de e-mails, o envio de notificações e a geração e validação de códigos OTP (one-time password) usados em fluxos sensíveis do Internet Banking, como autenticação e confirmação de operações.",
         features: [
           "Disparo de e-mails transacionais a partir de um ponto único de integração",
           "Envio de notificações para os canais da plataforma",
@@ -38,12 +37,12 @@ const projects: SeedProject[] = [
         ],
       },
       en: {
-        title: "Communication & OTP Service",
+        title: "ATF Sociedade de Crédito Direto",
         description:
-          "Back-end service for emails, notifications and OTP generation and validation, used in the authentication flows of a banking platform.",
+          "Back-end service for email delivery, notifications and OTP generation and validation, used in the Internet Banking authentication flows.",
         role: "Software Engineer (back-end)",
         longDescription:
-          "Anonymized case study of a communication service built in Java and Python for a fintech. The service centralizes transactional email delivery, notifications and the generation and validation of OTP (one-time password) codes used in sensitive flows such as authentication and operation confirmation. Internal details were omitted for confidentiality.",
+          "Communication service built in Java and Python for ATF Credit, the bank where I work as a Software Engineer. The service centralizes transactional email delivery, notifications and the generation and validation of OTP (one-time password) codes used in sensitive Internet Banking flows, such as authentication and operation confirmation.",
         features: [
           "Transactional email delivery through a single integration point",
           "Notification delivery to the platform's channels",
@@ -57,12 +56,12 @@ const projects: SeedProject[] = [
         ],
       },
       es: {
-        title: "Servicio de Comunicación y OTP",
+        title: "ATF Sociedade de Crédito Direto",
         description:
-          "Servicio back-end para envío de e-mails, notificaciones y generación y validación de códigos OTP, usado en los flujos de autenticación de una plataforma bancaria.",
+          "Servicio back-end para envío de e-mails, notificaciones y generación y validación de códigos OTP, usado en los flujos de autenticación del Internet Banking.",
         role: "Software Engineer (back-end)",
         longDescription:
-          "Caso anonimizado de un servicio de comunicación desarrollado en Java y Python para una fintech. El servicio centraliza el envío de e-mails transaccionales, las notificaciones y la generación y validación de códigos OTP (one-time password) usados en flujos sensibles, como autenticación y confirmación de operaciones. Los detalles internos se omitieron por confidencialidad.",
+          "Servicio de comunicación desarrollado en Java y Python para ATF Credit, banco donde trabajo como Software Engineer. El servicio centraliza el envío de e-mails transaccionales, las notificaciones y la generación y validación de códigos OTP (one-time password) usados en flujos sensibles del Internet Banking, como autenticación y confirmación de operaciones.",
         features: [
           "Envío de e-mails transaccionales desde un único punto de integración",
           "Envío de notificaciones a los canales de la plataforma",
