@@ -1,27 +1,28 @@
 import { Navbar } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
+import { Expertise } from "@/components/Expertise";
 import { Projects } from "@/components/Projects";
-import { Skills } from "@/components/Skills";
-import { Resume } from "@/components/Resume";
+import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { HudCorners } from "@/components/ui/HudCorners";
+import { getFeaturedProjects } from "@/db/queries";
 
-export default function Home() {
+export default async function Home() {
+  const featured = await getFeaturedProjects();
+
   return (
-    <div className="min-h-screen relative">
-      <HudCorners />
+    <>
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Projects />
-        <Skills />
-        <Resume />
+        <Expertise />
+        <Projects projects={featured} />
+        <Experience />
         <Contact />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { HudCorners } from "@/components/ui/HudCorners";
 import { ProjectsArchive } from "@/components/projects/ProjectsArchive";
+import { getProjects } from "@/db/queries";
 
 export const metadata: Metadata = {
-  title: "Archive — Gabriel Barbosa / Mission Control",
+  title: "Projetos",
   description:
-    "Archive completo das missões deployadas por Gabriel Barbosa: aplicações web e mobile com React, Next.js, React Native e TypeScript.",
+    "Projetos de Gabriel Barbosa: aplicações web, mobile e serviços com React, Next.js, React Native, TypeScript, Java e Python.",
+  alternates: { canonical: "/projects" },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
-    <div className="min-h-screen relative">
-      <HudCorners />
+    <>
       <Navbar />
-      <ProjectsArchive />
+      <ProjectsArchive projects={projects} />
       <Footer />
-    </div>
+    </>
   );
 }

@@ -1,211 +1,126 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  Calendar,
-  Briefcase,
-  Building2,
-} from "lucide-react";
-import type { Project } from "@/data/projects";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import type { Project } from "@/db/schemas";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
-interface ProjectDetailProps {
-  project: Project;
-  code: string;
-}
+export function ProjectDetail({ project }: { project: Project }) {
+  const { t, lang } = useI18n();
+  const details = project.content[lang];
 
-export function ProjectDetail({ project, code }: ProjectDetailProps) {
-  const { t } = useI18n();
-  const { details } = project;
+  const meta = [
+    { label: t.projectDetail.role, value: details.role },
+    { label: t.projectDetail.period, value: project.year },
+    ...(project.client ? [{ label: t.projectDetail.client, value: project.client }] : []),
+  ];
 
   return (
-    <main className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-6 md:px-10 relative">
+    <main className="pt-32 pb-24 md:pt-40 md:pb-32">
+      <article className="container-page max-w-4xl">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors duration-200 mb-10"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-fg"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          {t.projectDetail.backToIndex}
+          <ArrowLeft className="size-4" />
+          {t.projectDetail.back}
         </Link>
 
-        <header className="mb-12">
-          <div className="flex items-center gap-4 mb-6">
-            <span className="font-mono text-xs tracking-[0.22em] uppercase text-[var(--accent)]">
-              {t.projectDetail.mission} {code}
-            </span>
-            <span className="h-px flex-1 max-w-[100px] bg-[var(--border-strong)]" />
-            <span className="font-mono text-xs tracking-[0.22em] uppercase text-[var(--text-muted)]">
-              {details.year}
-            </span>
-          </div>
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-[var(--text)] leading-[0.92] mb-6 tracking-[-0.03em]">
-            {project.title}
+        <header className="mt-10">
+          <h1 className="text-4xl font-semibold tracking-tight text-fg md:text-6xl">
+            {details.title}
           </h1>
-          <p className="text-base md:text-xl text-[var(--text-soft)] leading-relaxed max-w-3xl">
-            {project.description}
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-soft md:text-xl">
+            {details.description}
           </p>
-        </header>
 
-        <div className="relative data-panel mb-12 overflow-hidden">
-          <div className="aspect-[16/8] relative">
-            <div className="absolute inset-0 hud-grid-dense opacity-30" />
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/12 via-transparent to-[var(--violet)]/12" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-display text-3xl md:text-6xl font-bold text-[var(--text)] opacity-30 tracking-tight px-6 text-center">
-                {project.title}
-              </span>
-            </div>
-            <span className="absolute top-3 left-3 font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--accent)] bg-[var(--bg)]/70 backdrop-blur-sm px-2 py-1 rounded-sm border border-[var(--accent)]/30">
-              {t.projectDetail.preview}
-            </span>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-3 mb-14">
-          <InfoCard
-            icon={<Briefcase className="w-3.5 h-3.5" />}
-            label={t.projectDetail.role}
-            value={details.role}
-          />
-          <InfoCard
-            icon={<Calendar className="w-3.5 h-3.5" />}
-            label={t.projectDetail.tenure}
-            value={details.year}
-          />
-          {details.client && (
-            <InfoCard
-              icon={<Building2 className="w-3.5 h-3.5" />}
-              label={t.projectDetail.client}
-              value={details.client}
-            />
-          )}
-        </div>
-
-        <section className="mb-14">
-          <SectionHead label={t.projectDetail.briefing} />
-          <p className="text-base md:text-lg text-[var(--text-soft)] leading-relaxed">
-            {details.longDescription}
-          </p>
-        </section>
-
-        <section className="mb-14">
-          <SectionHead label={t.projectDetail.stack} />
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="font-mono text-xs tracking-[0.04em] px-3 py-1.5 rounded-sm bg-[var(--surface)] text-[var(--text-soft)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
-              >
-                {tech}
-              </span>
+          <dl className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+            {meta.map((item) => (
+              <div key={item.label} className="bg-surface p-5">
+                <dt className="text-xs font-medium uppercase tracking-wider text-muted">
+                  {item.label}
+                </dt>
+                <dd className="mt-1.5 font-medium text-fg">{item.value}</dd>
+              </div>
             ))}
-          </div>
-        </section>
+          </dl>
 
-        <section className="mb-14">
-          <SectionHead label={t.projectDetail.deliverables} />
-          <ul className="space-y-3">
-            {details.features.map((feature, i) => (
-              <li
-                key={i}
-                className="group data-panel p-5 flex gap-4 items-start hover:border-[var(--accent)] transition-colors"
-              >
-                <span className="font-mono text-xs font-bold text-[var(--accent)] shrink-0 mt-0.5">
-                  [{String(i + 1).padStart(2, "0")}]
-                </span>
-                <span className="text-sm md:text-base text-[var(--text-soft)] leading-relaxed">
-                  {feature}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mb-14">
-          <SectionHead label={t.projectDetail.challenges} />
-          <ul className="space-y-3">
-            {details.challenges.map((challenge, i) => (
-              <li
-                key={i}
-                className="data-panel p-5 flex gap-4 items-start border-l-2"
-                style={{ borderLeftColor: "var(--rose)" }}
-              >
-                <span className="font-mono text-xs font-bold text-[var(--rose)] shrink-0 mt-0.5">
-                  ⚠ {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm md:text-base text-[var(--text-soft)] leading-relaxed">
-                  {challenge}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {project.demo && (
-          <section className="mb-14">
+          {project.demo && (
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary"
+              className="btn btn-primary mt-8"
             >
-              {t.projectDetail.accessBuild}
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              {t.projectDetail.live}
+              <ArrowUpRight className="size-4" />
             </a>
-          </section>
-        )}
+          )}
+        </header>
 
-        <nav className="pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <Section title={t.projectDetail.overview}>
+          <p className="text-lg leading-relaxed text-soft">{details.longDescription}</p>
+        </Section>
+
+        <Section title={t.projectDetail.stack}>
+          <ul className="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <li key={tech} className="tag">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section title={t.projectDetail.features}>
+          <ul className="space-y-3">
+            {details.features.map((feature) => (
+              <li key={feature} className="flex gap-3 leading-relaxed text-soft">
+                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                  <Check className="size-3" strokeWidth={3} />
+                </span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section title={t.projectDetail.challenges}>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {details.challenges.map((challenge, i) => (
+              <li key={challenge} className="card p-5">
+                <span className="font-mono text-xs text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-2 leading-relaxed text-soft">{challenge}</p>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <nav className="mt-16 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-fg"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            {t.projectDetail.allMissions}
+            <ArrowLeft className="size-4" />
+            {t.projectDetail.allProjects}
           </Link>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-[var(--accent)] hover:gap-3 transition-all"
-          >
-            {t.projectDetail.openChannel}
-            <ArrowUpRight className="w-3.5 h-3.5" />
+          <Link href="/#contact" className="btn btn-outline">
+            {t.projectDetail.contact}
+            <ArrowUpRight className="size-4" />
           </Link>
         </nav>
-      </div>
+      </article>
     </main>
   );
 }
 
-function SectionHead({ label }: { label: string }) {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3 mb-5">
-      <span className="font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--accent)]">
-        ▸ {label}
-      </span>
-      <span className="h-px flex-1 bg-[var(--border-strong)]" />
-    </div>
-  );
-}
-
-function InfoCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="data-panel p-5">
-      <div className="flex items-center gap-2 mb-2 font-mono text-[10px] tracking-[0.22em] uppercase text-[var(--text-muted)]">
-        <span className="text-[var(--accent)]">{icon}</span>
-        {label}
-      </div>
-      <p className="font-display text-base font-bold text-[var(--text)]">{value}</p>
-    </div>
+    <section className="mt-14">
+      <h2 className="mb-5 text-xl font-semibold tracking-tight text-fg">{title}</h2>
+      {children}
+    </section>
   );
 }
