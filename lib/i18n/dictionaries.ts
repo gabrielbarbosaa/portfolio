@@ -1,4 +1,4 @@
-import type { ExpertiseKey } from "@/data/skills";
+﻿import type { ExpertiseKey } from "@/data/skills";
 
 export type Lang = "pt" | "en" | "es";
 
@@ -16,6 +16,7 @@ export interface Dictionary {
     experience: string;
     contact: string;
     blog: string;
+    studies: string;
     openMenu: string;
     closeMenu: string;
     toggleTheme: string;
@@ -89,6 +90,22 @@ export interface Dictionary {
     rights: string;
     built: string;
   };
+  studies: {
+    label: string;
+    title: string;
+    subtitle: string;
+    viewAll: string;
+    viewStudy: string;
+    allTitle: string;
+    allSubtitle: string;
+    count: string;
+    back: string;
+    backHome: string;
+    repo: string;
+    repository: string;
+    status: { building: string; done: string };
+    statusLabel: string;
+  };
   blog: {
     label: string;
     title: string;
@@ -125,6 +142,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       experience: "Experiência",
       contact: "Contato",
       blog: "Blog",
+      studies: "Estudos",
       openMenu: "Abrir menu",
       closeMenu: "Fechar menu",
       toggleTheme: "Alternar tema",
@@ -252,6 +270,22 @@ export const dictionaries: Record<Lang, Dictionary> = {
       rights: "© {year} Gabriel Barbosa.",
       built: "Feito com Next.js e Tailwind CSS.",
     },
+    studies: {
+      label: "Laboratório",
+      title: "Projetos de estudo",
+      subtitle: "Projetos pessoais onde exploro arquitetura, ferramentas e ideias novas. Todos com código aberto no GitHub.",
+      viewAll: "Ver todos os estudos",
+      viewStudy: "Ver detalhes",
+      allTitle: "Todos os projetos de estudo",
+      allSubtitle: "Experimentos e projetos pessoais para aprender na prática. Cada um tem o código aberto no GitHub.",
+      count: "estudos",
+      back: "Todos os estudos",
+      backHome: "Voltar ao início",
+      repo: "Ver no GitHub",
+      repository: "Repositório",
+      status: { building: "Em construção", done: "Concluído" },
+      statusLabel: "Status",
+    },
     blog: {
       label: "Blog",
       title: "Notas técnicas",
@@ -288,6 +322,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       experience: "Experience",
       contact: "Contact",
       blog: "Blog",
+      studies: "Studies",
       openMenu: "Open menu",
       closeMenu: "Close menu",
       toggleTheme: "Toggle theme",
@@ -415,6 +450,22 @@ export const dictionaries: Record<Lang, Dictionary> = {
       rights: "© {year} Gabriel Barbosa.",
       built: "Built with Next.js and Tailwind CSS.",
     },
+    studies: {
+      label: "Lab",
+      title: "Study projects",
+      subtitle: "Personal projects where I explore architecture, tooling and new ideas. All open source on GitHub.",
+      viewAll: "View all studies",
+      viewStudy: "View details",
+      allTitle: "All study projects",
+      allSubtitle: "Experiments and personal projects to learn by doing. Each one is open source on GitHub.",
+      count: "studies",
+      back: "All studies",
+      backHome: "Back home",
+      repo: "View on GitHub",
+      repository: "Repository",
+      status: { building: "In progress", done: "Completed" },
+      statusLabel: "Status",
+    },
     blog: {
       label: "Blog",
       title: "Engineering notes",
@@ -451,6 +502,7 @@ export const dictionaries: Record<Lang, Dictionary> = {
       experience: "Experiencia",
       contact: "Contacto",
       blog: "Blog",
+      studies: "Estudios",
       openMenu: "Abrir menú",
       closeMenu: "Cerrar menú",
       toggleTheme: "Cambiar tema",
@@ -577,6 +629,22 @@ export const dictionaries: Record<Lang, Dictionary> = {
       tagline: "Software Engineer · Porto Alegre, BR",
       rights: "© {year} Gabriel Barbosa.",
       built: "Hecho con Next.js y Tailwind CSS.",
+    },
+    studies: {
+      label: "Laboratorio",
+      title: "Proyectos de estudio",
+      subtitle: "Proyectos personales donde exploro arquitectura, herramientas e ideas nuevas. Todos de código abierto en GitHub.",
+      viewAll: "Ver todos los estudios",
+      viewStudy: "Ver detalles",
+      allTitle: "Todos los proyectos de estudio",
+      allSubtitle: "Experimentos y proyectos personales para aprender haciendo. Cada uno tiene su código abierto en GitHub.",
+      count: "estudios",
+      back: "Todos los estudios",
+      backHome: "Volver al inicio",
+      repo: "Ver en GitHub",
+      repository: "Repositorio",
+      status: { building: "En construcción", done: "Completado" },
+      statusLabel: "Estado",
     },
     blog: {
       label: "Blog",

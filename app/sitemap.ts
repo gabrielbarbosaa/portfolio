@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProjects, getPublishedPosts } from "@/db/queries";
+import { studies } from "@/data/studies";
 import { SITE_URL } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -12,6 +13,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/projects/${project.slug}`,
       changeFrequency: "yearly" as const,
       priority: 0.6,
+    })),
+    { url: `${SITE_URL}/studies`, changeFrequency: "monthly", priority: 0.6 },
+    ...studies.map((study) => ({
+      url: `${SITE_URL}/studies/${study.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     })),
     ...(posts.length > 0
       ? [{ url: `${SITE_URL}/blog`, changeFrequency: "weekly" as const, priority: 0.7 }]

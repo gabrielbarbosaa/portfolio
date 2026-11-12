@@ -99,7 +99,7 @@ export function CommandPalette() {
 
   const commands = useMemo<Command[]>(() => {
     const go = (href: string) => () => router.push(href);
-    const sections = ["about", "expertise", "projects", "experience", "contact"] as const;
+    const sections = ["about", "expertise", "projects", "studies", "experience", "contact"] as const;
 
     return [
       ...sections.map((id) => ({

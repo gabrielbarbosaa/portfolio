@@ -11,7 +11,7 @@ import { CommandPalette } from "./CommandPalette";
 import { useSiteData } from "./SiteDataProvider";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
-const SECTION_IDS = ["about", "expertise", "projects", "experience", "contact"] as const;
+const SECTION_IDS = ["about", "expertise", "projects", "studies", "experience", "contact"] as const;
 
 export function Navbar() {
   const { t } = useI18n();
