@@ -106,6 +106,107 @@ const studies: SeedStudy[] = [
       },
     },
   },
+  {
+    slug: "pygmy-api",
+    repo: "pygmy-api",
+    year: "2026",
+    status: "done",
+    demo: "https://pygmy.gabrielbarbosadev.com.br/",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Redis",
+      "Pydantic",
+      "Next.js",
+      "TypeScript",
+      "GitHub OAuth",
+      "SMTP",
+      "Docker",
+      "Docker Compose",
+      "Caddy",
+      "pytest",
+    ],
+    content: {
+      pt: {
+        title: "pygmy",
+        description:
+          "API de OTP por e-mail para reaproveitar em todos os meus projetos: FastAPI + Redis, chaves por projeto, painel admin com login GitHub e deploy próprio em Docker.",
+        longDescription:
+          "pygmy nasceu de um problema que se repetia: cada projeto precisava de verificação por código no e-mail, e reescrever isso toda vez é desperdício e fonte de erro. Em vez disso, extraí o serviço para uma API única, que qualquer projeto consome com uma chave. O backend é FastAPI com Redis: gera o código, envia por SMTP e valida com limites rígidos. O site em Next.js traz documentação, uma demo interativa e um painel /admin, protegido por login com GitHub, onde crio uma credencial por projeto, giro as chaves e acompanho o uso dos últimos 14 dias. Tudo sobe com um docker compose em uma VPS, isolado de outros serviços, atrás de Caddy com HTTPS automático. É a versão enxuta, de código aberto, do mesmo tipo de serviço de OTP que construí profissionalmente.",
+        features: [
+          "Dois endpoints, POST /v1/otp/request e /verify, autenticados por Bearer token ou X-API-Key, com exemplos em curl, Python e Node",
+          "Códigos de 6 dígitos gerados com secrets, guardados no Redis apenas como HMAC, com expiração de 5 minutos e uso único",
+          "Limites contra abuso: 5 tentativas por código, cooldown de 60 s para reenvio, 5 pedidos por hora por e-mail e 20 por hora por IP do usuário final",
+          "Uma credencial por projeto, com namespace isolado: o mesmo e-mail em dois projetos nunca compartilha código nem limites",
+          "Chaves guardadas só como SHA-256; o segredo pyg_... aparece uma única vez, na criação ou na rotação",
+          "Painel /admin com login somente por GitHub (OAuth, lista de usuários permitidos) para criar, renomear, desativar, girar e excluir chaves, com gráfico de uso dos últimos 14 dias",
+          "Envio por SMTP (Hostinger) com template HTML do e-mail e nome do app configurável por requisição",
+          "Deploy isolado: rede, volume e containers próprios, portas só em 127.0.0.1, limites de memória e CPU, Caddy ou nginx na frente",
+          "Testes automatizados com pytest",
+        ],
+        challenges: [
+          "Tratar o OTP como dado sensível: guardar só o HMAC, comparar em tempo constante e garantir o uso único mesmo com verificações simultâneas",
+          "Aplicar rate limit e cooldown de forma atômica no Redis, sem corridas entre requisições concorrentes",
+          "Isolar os projetos entre si, usando o id da chave, e não o nome, como namespace, para que renomear nunca quebre nada",
+          "Proteger o painel: o navegador nunca vê a chave admin, que fica só no servidor do site, e a sessão é um cookie httpOnly",
+          "Evitar que um código fique preso quando o e-mail não é entregue, removendo o código e o cooldown se o envio falhar",
+          "Conviver na mesma VPS com outros serviços, sem disputar portas nem recursos",
+        ],
+      },
+      en: {
+        title: "pygmy",
+        description:
+          "Email OTP API I can reuse across all my projects: FastAPI + Redis, per-project keys, an admin panel with GitHub login and its own Docker deploy.",
+        longDescription:
+          "pygmy came from a recurring problem: every project needed email code verification, and rewriting it each time is wasteful and error-prone. Instead, I extracted the service into a single API that any project consumes with a key. The back end is FastAPI with Redis: it generates the code, sends it over SMTP and validates it under strict limits. The Next.js site ships documentation, an interactive demo and an /admin panel, protected by GitHub login, where I create one credential per project, rotate keys and follow usage over the last 14 days. Everything comes up with one docker compose on a VPS, isolated from other services, behind Caddy with automatic HTTPS. It is the lean, open-source take on the kind of OTP service I built professionally.",
+        features: [
+          "Two endpoints, POST /v1/otp/request and /verify, authenticated by Bearer token or X-API-Key, with curl, Python and Node examples",
+          "6-digit codes generated with secrets, stored in Redis only as an HMAC, with a 5-minute expiry and single use",
+          "Abuse limits: 5 attempts per code, a 60 s resend cooldown, 5 requests per hour per email and 20 per hour per end-user IP",
+          "One credential per project with an isolated namespace: the same email in two projects never shares a code or limits",
+          "Keys stored only as SHA-256; the pyg_... secret is shown a single time, on creation or rotation",
+          "/admin panel with GitHub-only login (OAuth, allow-list of users) to create, rename, disable, rotate and delete keys, with a 14-day usage chart",
+          "SMTP delivery (Hostinger) with an HTML email template and an app name configurable per request",
+          "Isolated deploy: own network, volume and containers, ports bound to 127.0.0.1 only, memory and CPU limits, Caddy or nginx in front",
+          "Automated tests with pytest",
+        ],
+        challenges: [
+          "Treating OTP as sensitive data: store only the HMAC, compare in constant time and guarantee single use even with concurrent verifications",
+          "Applying rate limits and cooldowns atomically in Redis, with no races between concurrent requests",
+          "Isolating projects from each other by using the key id, not its name, as the namespace, so renaming never breaks anything",
+          "Protecting the panel: the browser never sees the admin key, which stays on the site's server, and the session is an httpOnly cookie",
+          "Not leaving a code stuck when the email is never delivered, by removing the code and cooldown if sending fails",
+          "Sharing a VPS with other services without fighting over ports or resources",
+        ],
+      },
+      es: {
+        title: "pygmy",
+        description:
+          "API de OTP por e-mail para reutilizar en todos mis proyectos: FastAPI + Redis, claves por proyecto, panel admin con login de GitHub y deploy propio en Docker.",
+        longDescription:
+          "pygmy nació de un problema que se repetía: cada proyecto necesitaba verificación por código en el e-mail, y reescribirlo cada vez es un desperdicio y una fuente de errores. En su lugar, extraje el servicio a una única API que cualquier proyecto consume con una clave. El backend es FastAPI con Redis: genera el código, lo envía por SMTP y lo valida con límites estrictos. El sitio en Next.js trae documentación, una demo interactiva y un panel /admin, protegido por login de GitHub, donde creo una credencial por proyecto, roto las claves y sigo el uso de los últimos 14 días. Todo sube con un docker compose en una VPS, aislado de otros servicios, detrás de Caddy con HTTPS automático. Es la versión liviana y de código abierto del mismo tipo de servicio de OTP que construí profesionalmente.",
+        features: [
+          "Dos endpoints, POST /v1/otp/request y /verify, autenticados por Bearer token o X-API-Key, con ejemplos en curl, Python y Node",
+          "Códigos de 6 dígitos generados con secrets, guardados en Redis solo como HMAC, con expiración de 5 minutos y uso único",
+          "Límites contra abuso: 5 intentos por código, cooldown de 60 s para reenvío, 5 pedidos por hora por e-mail y 20 por hora por IP del usuario final",
+          "Una credencial por proyecto con namespace aislado: el mismo e-mail en dos proyectos nunca comparte código ni límites",
+          "Claves guardadas solo como SHA-256; el secreto pyg_... aparece una única vez, al crear o rotar",
+          "Panel /admin con login solo por GitHub (OAuth, lista de usuarios permitidos) para crear, renombrar, desactivar, rotar y eliminar claves, con gráfico de uso de los últimos 14 días",
+          "Envío por SMTP (Hostinger) con plantilla HTML del e-mail y nombre de la app configurable por solicitud",
+          "Deploy aislado: red, volumen y contenedores propios, puertos solo en 127.0.0.1, límites de memoria y CPU, Caddy o nginx al frente",
+          "Tests automatizados con pytest",
+        ],
+        challenges: [
+          "Tratar el OTP como dato sensible: guardar solo el HMAC, comparar en tiempo constante y garantizar el uso único incluso con verificaciones simultáneas",
+          "Aplicar rate limit y cooldown de forma atómica en Redis, sin condiciones de carrera entre solicitudes concurrentes",
+          "Aislar los proyectos entre sí, usando el id de la clave, y no el nombre, como namespace, para que renombrar nunca rompa nada",
+          "Proteger el panel: el navegador nunca ve la clave admin, que queda solo en el servidor del sitio, y la sesión es una cookie httpOnly",
+          "Evitar que un código quede trabado cuando el e-mail no se entrega, eliminando el código y el cooldown si el envío falla",
+          "Convivir en la misma VPS con otros servicios, sin pelear por puertos ni recursos",
+        ],
+      },
+    },
+  },
 ];
 
 export const seedStudies: Study[] = studies.map((study, order) => ({ ...study, order }));
