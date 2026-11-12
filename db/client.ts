@@ -2,6 +2,7 @@ import { MongoClient, type Db } from "mongodb";
 
 export const COLLECTIONS = {
   projects: "projects",
+  studies: "studies",
   posts: "posts",
   pageviews: "pageviews",
 } as const;

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Check, Github } from "lucide-react";
-import { repoUrl, type Study } from "@/data/studies";
+import type { Study } from "@/db/schemas";
+import { repoUrl } from "@/lib/studies";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
@@ -56,7 +57,7 @@ export function StudyDetail({ study }: { study: Study }) {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={repoUrl(study)}
+              href={repoUrl(study.repo)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"

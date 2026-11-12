@@ -1,8 +1,17 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { COLLECTIONS, getDb, isDbConfigured } from "./client";
-import { postSchema, projectSchema, type Post, type PostMeta, type Project } from "./schemas";
+import {
+  postSchema,
+  projectSchema,
+  studySchema,
+  type Post,
+  type PostMeta,
+  type Project,
+  type Study,
+} from "./schemas";
 import { seedProjects } from "./seed-data/projects";
+import { seedStudies } from "./seed-data/studies";
 import { loadSeedPosts } from "./seed-data/posts";
 
 /**
@@ -11,7 +20,7 @@ import { loadSeedPosts } from "./seed-data/posts";
  * Os resultados ficam em cache (as páginas continuam estáticas). Quando algo
  * for editado no admin, basta chamar revalidateTag(CACHE_TAGS.projects | posts).
  */
-export const CACHE_TAGS = { projects: "projects", posts: "posts" } as const;
+export const CACHE_TAGS = { projects: "projects", posts: "posts", studies: "studies" } as const;
 
 /** Em `next dev` os rascunhos aparecem; em produção, nunca. */
 const SHOW_DRAFTS = process.env.NODE_ENV !== "production";
@@ -36,6 +45,20 @@ const fetchProjects = unstable_cache(
   },
   ["projects"],
   { tags: [CACHE_TAGS.projects] }
+);
+
+const fetchStudies = unstable_cache(
+  async (): Promise<Study[]> => {
+    if (!isDbConfigured()) {
+      warnFallback();
+      return seedStudies;
+    }
+    const db = await getDb();
+    const docs = await db.collection(COLLECTIONS.studies).find().sort({ order: 1 }).toArray();
+    return docs.map((doc) => studySchema.parse(doc));
+  },
+  ["studies"],
+  { tags: [CACHE_TAGS.studies] }
 );
 
 const fetchPosts = unstable_cache(
@@ -68,6 +91,17 @@ export async function getFeaturedProjects() {
 export async function getProjectBySlug(slug: string) {
   const projects = await fetchProjects();
   return projects.find((p) => p.slug === slug);
+}
+
+/* ---------- Estudos ---------- */
+
+export function getStudies() {
+  return fetchStudies();
+}
+
+export async function getStudyBySlug(slug: string) {
+  const studies = await fetchStudies();
+  return studies.find((s) => s.slug === slug);
 }
 
 /* ---------- Blog ---------- */

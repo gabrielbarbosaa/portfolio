@@ -11,6 +11,7 @@ import {
   Copy,
   Download,
   FileText,
+  FlaskConical,
   FolderOpen,
   Github,
   Hash,
@@ -42,7 +43,7 @@ const normalize = (text: string) =>
 export function CommandPalette() {
   const { t, lang, setLang } = useI18n();
   const { resolvedTheme, setTheme } = useTheme();
-  const { projects, hasPosts } = useSiteData();
+  const { projects, hasPosts, hasStudies } = useSiteData();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -99,7 +100,7 @@ export function CommandPalette() {
 
   const commands = useMemo<Command[]>(() => {
     const go = (href: string) => () => router.push(href);
-    const sections = ["about", "expertise", "projects", "studies", "experience", "contact"] as const;
+    const sections = ["about", "expertise", "projects", "experience", "contact"] as const;
 
     return [
       ...sections.map((id) => ({
@@ -110,6 +111,9 @@ export function CommandPalette() {
         run: go(`/#${id}`),
       })),
       { id: "nav-all-projects", group: "navigation", label: t.palette.allProjects, icon: FolderOpen, run: go("/projects") },
+      ...(hasStudies
+        ? [{ id: "nav-studies", group: "navigation" as const, label: t.nav.studies, icon: FlaskConical, run: go("/studies") }]
+        : []),
       ...(hasPosts
         ? [{ id: "nav-blog", group: "navigation" as const, label: t.nav.blog, icon: FileText, run: go("/blog") }]
         : []),
@@ -161,7 +165,7 @@ export function CommandPalette() {
       { id: "link-github", group: "links", label: "GitHub", keywords: profile.githubHandle, icon: Github, run: () => window.open(profile.github, "_blank", "noopener") },
       { id: "link-linkedin", group: "links", label: "LinkedIn", icon: Linkedin, run: () => window.open(profile.linkedin, "_blank", "noopener") },
     ];
-  }, [t, lang, setLang, router, resolvedTheme, setTheme, projects, hasPosts]);
+  }, [t, lang, setLang, router, resolvedTheme, setTheme, projects, hasPosts, hasStudies]);
 
   const filtered = useMemo(() => {
     const terms = normalize(query).split(/\s+/).filter(Boolean);

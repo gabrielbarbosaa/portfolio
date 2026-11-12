@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StudiesArchive } from "@/components/studies/StudiesArchive";
+import { getStudies } from "@/db/queries";
 
 export const metadata: Metadata = {
   title: "Projetos de estudo",
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/studies" },
 };
 
-export default function StudiesPage() {
+export default async function StudiesPage() {
+  const studies = await getStudies();
+
   return (
     <>
       <Navbar />
-      <StudiesArchive />
+      <StudiesArchive studies={studies} />
       <Footer />
     </>
   );

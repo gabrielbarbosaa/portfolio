@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, FolderKanban, Newspaper, Star } from "lucide-react";
-import { getAllPostsAdmin, getProjects } from "@/db/queries";
+import { ArrowRight, FlaskConical, FolderKanban, Newspaper, Star } from "lucide-react";
+import { getAllPostsAdmin, getProjects, getStudies } from "@/db/queries";
 import { isDbConfigured } from "@/db/client";
 
 export default async function AdminDashboardPage() {
   const dbReady = isDbConfigured();
-  const [projects, posts] = await Promise.all([getProjects(), getAllPostsAdmin()]);
+  const [projects, posts, studies] = await Promise.all([
+    getProjects(),
+    getAllPostsAdmin(),
+    getStudies(),
+  ]);
   const featuredCount = projects.filter((p) => p.featuredOrder !== null).length;
   const publishedCount = posts.filter((p) => p.published).length;
 
@@ -13,7 +17,7 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-semibold text-fg">Painel</h1>
-        <p className="mt-1 text-sm text-muted">Gerencie os projetos e os posts do site.</p>
+        <p className="mt-1 text-sm text-muted">Gerencie os projetos, os estudos e os posts do site.</p>
       </div>
 
       {!dbReady && (
@@ -30,6 +34,12 @@ export default async function AdminDashboardPage() {
           stat={`${projects.length} no total · ${featuredCount} em destaque na home`}
         />
         <DashboardCard
+          href="/admin/studies"
+          icon={FlaskConical}
+          title="Estudos"
+          stat={`${studies.length} no total · ${studies.filter((s) => s.status === "done").length} concluídos`}
+        />
+        <DashboardCard
           href="/admin/posts"
           icon={Newspaper}
           title="Blog"
@@ -40,6 +50,9 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-wrap gap-3">
         <Link href="/admin/projects/new" className="btn btn-primary">
           Novo projeto
+        </Link>
+        <Link href="/admin/studies/new" className="btn btn-outline">
+          Novo estudo
         </Link>
         <Link href="/admin/posts/new" className="btn btn-outline">
           Novo post

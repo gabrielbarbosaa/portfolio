@@ -3,19 +3,20 @@ import { notFound } from "next/navigation";
 import { Navbar } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StudyDetail } from "@/components/studies/StudyDetail";
-import { getStudy, studies } from "@/data/studies";
+import { getStudies, getStudyBySlug } from "@/db/queries";
 
 interface StudyPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const studies = await getStudies();
   return studies.map((study) => ({ slug: study.slug }));
 }
 
 export async function generateMetadata({ params }: StudyPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const study = getStudy(slug);
+  const study = await getStudyBySlug(slug);
 
   if (!study) return { title: "Estudo não encontrado" };
 
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: StudyPageProps): Promise<Meta
 
 export default async function StudyPage({ params }: StudyPageProps) {
   const { slug } = await params;
-  const study = getStudy(slug);
+  const study = await getStudyBySlug(slug);
 
   if (!study) notFound();
 

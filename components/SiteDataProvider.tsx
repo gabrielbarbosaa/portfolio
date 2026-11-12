@@ -12,9 +12,14 @@ export interface SiteData {
     titles: Record<Lang, string>;
   }[];
   hasPosts: boolean;
+  hasStudies: boolean;
 }
 
-const SiteDataContext = createContext<SiteData>({ projects: [], hasPosts: false });
+const SiteDataContext = createContext<SiteData>({
+  projects: [],
+  hasPosts: false,
+  hasStudies: false,
+});
 
 export function SiteDataProvider({
   value,

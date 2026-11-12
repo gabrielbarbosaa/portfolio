@@ -7,8 +7,9 @@
  * Lê MONGODB_URI / MONGODB_DB de .env.local.
  */
 import { COLLECTIONS, getClient, getDb } from "../db/client";
-import { postSchema, projectSchema } from "../db/schemas";
+import { postSchema, projectSchema, studySchema } from "../db/schemas";
 import { seedProjects } from "../db/seed-data/projects";
+import { seedStudies } from "../db/seed-data/studies";
 import { loadSeedPosts } from "../db/seed-data/posts";
 
 for (const file of [".env.local", ".env"]) {
@@ -59,6 +60,8 @@ async function main() {
   await Promise.all([
     db.collection(COLLECTIONS.projects).createIndex({ slug: 1 }, { unique: true }),
     db.collection(COLLECTIONS.projects).createIndex({ order: 1 }),
+    db.collection(COLLECTIONS.studies).createIndex({ slug: 1 }, { unique: true }),
+    db.collection(COLLECTIONS.studies).createIndex({ order: 1 }),
     db.collection(COLLECTIONS.posts).createIndex({ slug: 1 }, { unique: true }),
     db.collection(COLLECTIONS.posts).createIndex({ published: 1, date: -1 }),
     db.collection(COLLECTIONS.pageviews).createIndex({ createdAt: -1 }),
@@ -70,6 +73,7 @@ async function main() {
   ]);
 
   await upsertAll(COLLECTIONS.projects, seedProjects, (p) => projectSchema.parse(p));
+  await upsertAll(COLLECTIONS.studies, seedStudies, (s) => studySchema.parse(s));
   await upsertAll(COLLECTIONS.posts, loadSeedPosts(), (p) => postSchema.parse(p));
 
   console.log("Pronto. Se o `next dev` estiver rodando, reinicie para limpar o cache.");

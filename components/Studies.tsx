@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "./ui/ScrollReveal";
 import { SectionHeader } from "./ui/SectionHeader";
 import { StudyCard } from "./ui/StudyCard";
-import { studies } from "@/data/studies";
+import type { Study } from "@/db/schemas";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
 const HOME_LIMIT = 3;
 
-export function Studies() {
+export function Studies({ studies }: { studies: Study[] }) {
   const { t } = useI18n();
   if (studies.length === 0) return null;
 

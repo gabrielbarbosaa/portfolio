@@ -4,10 +4,10 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { StudyCard } from "@/components/ui/StudyCard";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { studies } from "@/data/studies";
+import type { Study } from "@/db/schemas";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
-export function StudiesArchive() {
+export function StudiesArchive({ studies }: { studies: Study[] }) {
   const { t } = useI18n();
 
   return (

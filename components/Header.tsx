@@ -11,11 +11,11 @@ import { CommandPalette } from "./CommandPalette";
 import { useSiteData } from "./SiteDataProvider";
 import { useI18n } from "@/lib/i18n/I18nProvider";
 
-const SECTION_IDS = ["about", "expertise", "projects", "studies", "experience", "contact"] as const;
+const SECTION_IDS = ["about", "expertise", "projects", "experience", "contact"] as const;
 
 export function Navbar() {
   const { t } = useI18n();
-  const { hasPosts } = useSiteData();
+  const { hasPosts, hasStudies } = useSiteData();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,11 +23,17 @@ export function Navbar() {
 
   const navItems = [
     ...SECTION_IDS.map((id) => ({ id, label: t.nav[id], href: `/#${id}` })),
+    // Só aparece quando há algum estudo cadastrado
+    ...(hasStudies ? [{ id: "studies", label: t.nav.studies, href: "/studies" }] : []),
     // O link do blog só aparece quando há post visível (em produção: publicado)
     ...(hasPosts ? [{ id: "blog", label: t.nav.blog, href: "/blog" }] : []),
   ];
   const isActive = (id: string) =>
-    id === "blog" ? pathname.startsWith("/blog") : active === id;
+    id === "blog"
+      ? pathname.startsWith("/blog")
+      : id === "studies"
+        ? pathname.startsWith("/studies")
+        : active === id;
 
   useEffect(() => {
     const handleScroll = () => {

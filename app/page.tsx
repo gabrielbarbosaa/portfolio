@@ -7,10 +7,10 @@ import { Studies } from "@/components/Studies";
 import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { getFeaturedProjects } from "@/db/queries";
+import { getFeaturedProjects, getStudies } from "@/db/queries";
 
 export default async function Home() {
-  const featured = await getFeaturedProjects();
+  const [featured, studies] = await Promise.all([getFeaturedProjects(), getStudies()]);
 
   return (
     <>
@@ -20,7 +20,7 @@ export default async function Home() {
         <About />
         <Expertise />
         <Projects projects={featured} />
-        <Studies />
+        <Studies studies={studies} />
         <Experience />
         <Contact />
       </main>

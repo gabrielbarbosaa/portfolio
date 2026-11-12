@@ -7,10 +7,13 @@ import { CACHE_TAGS } from "./queries";
 import {
   postInputSchema,
   projectInputSchema,
+  studyInputSchema,
   type Post,
   type PostInput,
   type Project,
   type ProjectInput,
+  type Study,
+  type StudyInput,
 } from "./schemas";
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
@@ -38,6 +41,13 @@ function revalidateProjectPaths(slug?: string) {
   revalidatePath("/");
   revalidatePath("/projects");
   if (slug) revalidatePath(`/projects/${slug}`);
+}
+
+function revalidateStudyPaths(slug?: string) {
+  revalidateTag(CACHE_TAGS.studies);
+  revalidatePath("/");
+  revalidatePath("/studies");
+  if (slug) revalidatePath(`/studies/${slug}`);
 }
 
 function revalidatePostPaths(slug?: string) {
@@ -186,6 +196,96 @@ export async function moveFeaturedProject(
   ]);
 
   revalidateProjectPaths();
+  return { ok: true };
+}
+
+/* ================= Estudos ================= */
+
+export async function createStudy(input: StudyInput): Promise<ActionResult> {
+  const denied = await checkAdmin();
+  if (denied) return denied;
+
+  const parsed = studyInputSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
+  }
+
+  const db = await getDb();
+  const collection = db.collection<Study>(COLLECTIONS.studies);
+  // Novo estudo entra no topo da lista (menor `order` primeiro)
+  const first = await collection.find().sort({ order: 1 }).limit(1).toArray();
+  const order = (first[0]?.order ?? 1) - 1;
+  const now = new Date();
+
+  try {
+    await collection.insertOne({
+      ...parsed.data,
+      order,
+      createdAt: now,
+      updatedAt: now,
+    } as Study & { createdAt: Date; updatedAt: Date });
+  } catch (error) {
+    if (isDuplicateKeyError(error)) {
+      return { ok: false, error: `Já existe um estudo com o slug "${parsed.data.slug}".` };
+    }
+    throw error;
+  }
+
+  revalidateStudyPaths(parsed.data.slug);
+  return { ok: true };
+}
+
+export async function updateStudy(slug: string, input: StudyInput): Promise<ActionResult> {
+  const denied = await checkAdmin();
+  if (denied) return denied;
+
+  const parsed = studyInputSchema.safeParse({ ...input, slug });
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
+  }
+
+  const db = await getDb();
+  const { slug: _slug, ...fields } = parsed.data;
+  const result = await db
+    .collection(COLLECTIONS.studies)
+    .updateOne({ slug }, { $set: { ...fields, updatedAt: new Date() } });
+
+  if (result.matchedCount === 0) return { ok: false, error: "Estudo não encontrado." };
+
+  revalidateStudyPaths(slug);
+  return { ok: true };
+}
+
+export async function deleteStudy(slug: string): Promise<ActionResult> {
+  const denied = await checkAdmin();
+  if (denied) return denied;
+
+  const db = await getDb();
+  await db.collection(COLLECTIONS.studies).deleteOne({ slug });
+  revalidateStudyPaths(slug);
+  return { ok: true };
+}
+
+/** Troca a posição do estudo com o vizinho. */
+export async function moveStudy(slug: string, direction: "up" | "down"): Promise<ActionResult> {
+  const denied = await checkAdmin();
+  if (denied) return denied;
+
+  const db = await getDb();
+  const collection = db.collection<Study>(COLLECTIONS.studies);
+  const all = await collection.find().sort({ order: 1 }).toArray();
+  const index = all.findIndex((s) => s.slug === slug);
+  const neighborIndex = direction === "up" ? index - 1 : index + 1;
+  if (index === -1 || neighborIndex < 0 || neighborIndex >= all.length) return { ok: true };
+
+  const current = all[index];
+  const neighbor = all[neighborIndex];
+  await Promise.all([
+    collection.updateOne({ slug: current.slug }, { $set: { order: neighbor.order } }),
+    collection.updateOne({ slug: neighbor.slug }, { $set: { order: current.order } }),
+  ]);
+
+  revalidateStudyPaths();
   return { ok: true };
 }
 

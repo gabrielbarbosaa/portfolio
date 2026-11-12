@@ -37,6 +37,35 @@ export const projectSchema = z.object({
   }),
 });
 
+export const studyContentSchema = z.object({
+  title: text,
+  description: text,
+  longDescription: text,
+  features: z.array(text),
+  challenges: z.array(text),
+});
+
+/** Projeto de estudo / pessoal, ligado a um repositório do GitHub. */
+export const studySchema = z.object({
+  slug,
+  /** Nome do repositório em github.com/<usuário>/<repo> */
+  repo: z
+    .string()
+    .trim()
+    .regex(/^[A-Za-z0-9._-]+$/, "Use só o nome do repositório (ex.: moonlight)"),
+  year: text,
+  status: z.enum(["building", "done"]),
+  technologies: z.array(text),
+  demo: z.url().optional(),
+  /** Posição na lista (menor primeiro) */
+  order: z.number().int(),
+  content: z.object({
+    pt: studyContentSchema,
+    en: studyContentSchema,
+    es: studyContentSchema,
+  }),
+});
+
 export const postSchema = z.object({
   slug,
   title: text,
@@ -73,11 +102,15 @@ export type Pageview = z.infer<typeof pageviewSchema>;
 
 /** O que o formulário do admin envia: sem os campos que o servidor calcula. */
 export const projectInputSchema = projectSchema.omit({ order: true, featuredOrder: true });
+export const studyInputSchema = studySchema.omit({ order: true });
 export const postInputSchema = postSchema.omit({ readingMinutes: true });
 
 export type ProjectContent = z.infer<typeof projectContentSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectInput = z.infer<typeof projectInputSchema>;
+export type StudyContent = z.infer<typeof studyContentSchema>;
+export type Study = z.infer<typeof studySchema>;
+export type StudyInput = z.infer<typeof studyInputSchema>;
 export type Post = z.infer<typeof postSchema>;
 export type PostMeta = Omit<Post, "body">;
 export type PostInput = z.infer<typeof postInputSchema>;

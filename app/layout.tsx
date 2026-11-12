@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { I18nProvider } from "@/lib/i18n/I18nProvider";
 import { SITE_URL } from "@/lib/site";
 import { profile } from "@/data/profile";
-import { getPosts, getProjects } from "@/db/queries";
+import { getPosts, getProjects, getStudies } from "@/db/queries";
 import { SiteDataProvider, type SiteData } from "@/components/SiteDataProvider";
 import { PageviewTracker } from "@/components/PageviewTracker";
 import "./globals.css";
@@ -107,7 +107,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+  const [projects, posts, studies] = await Promise.all([
+    getProjects(),
+    getPosts(),
+    getStudies(),
+  ]);
   const siteData: SiteData = {
     projects: projects.map((p) => ({
       slug: p.slug,
@@ -116,6 +120,7 @@ export default async function RootLayout({
       titles: { pt: p.content.pt.title, en: p.content.en.title, es: p.content.es.title },
     })),
     hasPosts: posts.length > 0,
+    hasStudies: studies.length > 0,
   };
 
   return (

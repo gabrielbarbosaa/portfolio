@@ -1,34 +1,13 @@
-﻿import type { Lang } from "@/lib/i18n/dictionaries";
+﻿import type { Study } from "../schemas";
 
 /**
- * Projetos de estudo / pessoais (repositórios do GitHub).
- *
- * Para publicar um novo, adicione um item no TOPO da lista (os mais recentes
- * aparecem primeiro) e faça o deploy. A página /studies/<slug> é gerada sozinha.
+ * Dados iniciais dos projetos de estudo.
+ * - `npm run db:seed` grava no MongoDB (só insere o que ainda não existe).
+ * - Sem MONGODB_URI, o site lê direto daqui (modo sem banco).
+ * Depois que o banco estiver populado, edite os estudos pelo admin, não aqui.
  */
-export interface StudyContent {
-  title: string;
-  description: string;
-  longDescription: string;
-  features: string[];
-  challenges: string[];
-}
-
-export interface Study {
-  slug: string;
-  /** Nome do repositório em github.com/gabrielbarbosaa/<repo> */
-  repo: string;
-  year: string;
-  status: "building" | "done";
-  technologies: string[];
-  /** Link de demo, se houver */
-  demo?: string;
-  content: Record<Lang, StudyContent>;
-}
-
-export const GITHUB_USER = "gabrielbarbosaa";
-
-export const studies: Study[] = [
+type SeedStudy = Omit<Study, "order">;
+const studies: SeedStudy[] = [
   {
     slug: "moonlight",
     repo: "moonlight",
@@ -128,5 +107,5 @@ export const studies: Study[] = [
     },
   },
 ];
-export const getStudy = (slug: string) => studies.find((s) => s.slug === slug);
-export const repoUrl = (study: Study) => `https://github.com/${GITHUB_USER}/${study.repo}`;
+
+export const seedStudies: Study[] = studies.map((study, order) => ({ ...study, order }));
