@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, FlaskConical, FolderKanban, Newspaper, Star } from "lucide-react";
-import { getAllPostsAdmin, getProjects, getStudies } from "@/db/queries";
+import { getAllPostsAdmin, getProjectsAdmin, getStudiesAdmin } from "@/db/queries";
 import { isDbConfigured } from "@/db/client";
 
 export default async function AdminDashboardPage() {
   const dbReady = isDbConfigured();
   const [projects, posts, studies] = await Promise.all([
-    getProjects(),
+    getProjectsAdmin(),
     getAllPostsAdmin(),
-    getStudies(),
+    getStudiesAdmin(),
   ]);
   const featuredCount = projects.filter((p) => p.featuredOrder !== null).length;
   const publishedCount = posts.filter((p) => p.published).length;
@@ -22,7 +22,7 @@ export default async function AdminDashboardPage() {
 
       {!dbReady && (
         <p className="rounded-lg border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-accent">
-          MONGODB_URI não está configurada neste ambiente: as alterações não serão salvas.
+          MONGODB_URI nÃ£o estÃ¡ configurada neste ambiente: as alteraÃ§Ãµes nÃ£o serÃ£o salvas.
         </p>
       )}
 
@@ -31,19 +31,19 @@ export default async function AdminDashboardPage() {
           href="/admin/projects"
           icon={FolderKanban}
           title="Projetos"
-          stat={`${projects.length} no total · ${featuredCount} em destaque na home`}
+          stat={`${projects.length} no total Â· ${featuredCount} em destaque na home`}
         />
         <DashboardCard
           href="/admin/studies"
           icon={FlaskConical}
           title="Estudos"
-          stat={`${studies.length} no total · ${studies.filter((s) => s.status === "done").length} concluídos`}
+          stat={`${studies.length} no total Â· ${studies.filter((s) => s.status === "done").length} concluÃ­dos`}
         />
         <DashboardCard
           href="/admin/posts"
           icon={Newspaper}
           title="Blog"
-          stat={`${posts.length} no total · ${publishedCount} publicados`}
+          stat={`${posts.length} no total Â· ${publishedCount} publicados`}
         />
       </div>
 

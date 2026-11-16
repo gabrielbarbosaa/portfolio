@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { StudiesTable } from "@/components/admin/StudiesTable";
-import { getStudies } from "@/db/queries";
+import { getStudiesAdmin } from "@/db/queries";
 
 export default async function AdminStudiesPage() {
-  const studies = await getStudies();
+  const studies = await getStudiesAdmin();
 
   return (
     <div className="space-y-6">

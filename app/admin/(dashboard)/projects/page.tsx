@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ProjectsTable } from "@/components/admin/ProjectsTable";
-import { getProjects } from "@/db/queries";
+import { getProjectsAdmin } from "@/db/queries";
 
 export default async function AdminProjectsPage() {
-  const projects = await getProjects();
+  const projects = await getProjectsAdmin();
 
   return (
     <div className="space-y-6">

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { StudyForm } from "@/components/admin/StudyForm";
-import { getStudyBySlug } from "@/db/queries";
+import { getStudyAdmin } from "@/db/queries";
 
 export default async function EditStudyPage({
   params,
@@ -8,7 +8,7 @@ export default async function EditStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const study = await getStudyBySlug(slug);
+  const study = await getStudyAdmin(slug);
   if (!study) notFound();
 
   return (

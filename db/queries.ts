@@ -32,48 +32,42 @@ function warnFallback() {
   console.warn("[db] MONGODB_URI não definida: usando os dados locais de db/seed-data.");
 }
 
-const fetchProjects = unstable_cache(
-  async (): Promise<Project[]> => {
-    if (!isDbConfigured()) {
-      warnFallback();
-      return seedProjects;
-    }
-    const db = await getDb();
-    const docs = await db.collection(COLLECTIONS.projects).find().sort({ order: 1 }).toArray();
-    // .parse remove _id/createdAt/updatedAt e garante o formato esperado
-    return docs.map((doc) => projectSchema.parse(doc));
-  },
-  ["projects"],
-  { tags: [CACHE_TAGS.projects] }
-);
+/* Leituras diretas no banco (sem cache). O admin usa estas, para sempre mostrar o que está no
+   MongoDB, mesmo quando o seed (que não limpa o cache do Next) gravou direto. */
+async function readProjects(): Promise<Project[]> {
+  if (!isDbConfigured()) {
+    warnFallback();
+    return seedProjects;
+  }
+  const db = await getDb();
+  const docs = await db.collection(COLLECTIONS.projects).find().sort({ order: 1 }).toArray();
+  // .parse remove _id/createdAt/updatedAt e garante o formato esperado
+  return docs.map((doc) => projectSchema.parse(doc));
+}
 
-const fetchStudies = unstable_cache(
-  async (): Promise<Study[]> => {
-    if (!isDbConfigured()) {
-      warnFallback();
-      return seedStudies;
-    }
-    const db = await getDb();
-    const docs = await db.collection(COLLECTIONS.studies).find().sort({ order: 1 }).toArray();
-    return docs.map((doc) => studySchema.parse(doc));
-  },
-  ["studies"],
-  { tags: [CACHE_TAGS.studies] }
-);
+async function readStudies(): Promise<Study[]> {
+  if (!isDbConfigured()) {
+    warnFallback();
+    return seedStudies;
+  }
+  const db = await getDb();
+  const docs = await db.collection(COLLECTIONS.studies).find().sort({ order: 1 }).toArray();
+  return docs.map((doc) => studySchema.parse(doc));
+}
 
-const fetchPosts = unstable_cache(
-  async (): Promise<Post[]> => {
-    if (!isDbConfigured()) {
-      warnFallback();
-      return loadSeedPosts().sort((a, b) => b.date.localeCompare(a.date));
-    }
-    const db = await getDb();
-    const docs = await db.collection(COLLECTIONS.posts).find().sort({ date: -1 }).toArray();
-    return docs.map((doc) => postSchema.parse(doc));
-  },
-  ["posts"],
-  { tags: [CACHE_TAGS.posts] }
-);
+async function readPosts(): Promise<Post[]> {
+  if (!isDbConfigured()) {
+    warnFallback();
+    return loadSeedPosts().sort((a, b) => b.date.localeCompare(a.date));
+  }
+  const db = await getDb();
+  const docs = await db.collection(COLLECTIONS.posts).find().sort({ date: -1 }).toArray();
+  return docs.map((doc) => postSchema.parse(doc));
+}
+
+const fetchProjects = unstable_cache(readProjects, ["projects"], { tags: [CACHE_TAGS.projects] });
+const fetchStudies = unstable_cache(readStudies, ["studies"], { tags: [CACHE_TAGS.studies] });
+const fetchPosts = unstable_cache(readPosts, ["posts"], { tags: [CACHE_TAGS.posts] });
 
 /* ---------- Projetos ---------- */
 
@@ -126,11 +120,29 @@ export async function getPost(slug: string): Promise<Post | undefined> {
 
 /* ---------- Admin (vê tudo, inclusive rascunhos, em qualquer ambiente) ---------- */
 
-export async function getAllPostsAdmin(): Promise<Post[]> {
-  return fetchPosts();
+export function getAllPostsAdmin(): Promise<Post[]> {
+  return readPosts();
 }
 
 export async function getPostAdmin(slug: string): Promise<Post | undefined> {
-  const posts = await fetchPosts();
+  const posts = await readPosts();
   return posts.find((p) => p.slug === slug);
+}
+
+export function getProjectsAdmin(): Promise<Project[]> {
+  return readProjects();
+}
+
+export async function getProjectAdmin(slug: string): Promise<Project | undefined> {
+  const projects = await readProjects();
+  return projects.find((p) => p.slug === slug);
+}
+
+export function getStudiesAdmin(): Promise<Study[]> {
+  return readStudies();
+}
+
+export async function getStudyAdmin(slug: string): Promise<Study | undefined> {
+  const studies = await readStudies();
+  return studies.find((s) => s.slug === slug);
 }
