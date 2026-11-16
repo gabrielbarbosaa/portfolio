@@ -17,6 +17,16 @@ const seedPostsMeta: PostMeta[] = [
     readingMinutes: 5,
     published: false,
   },
+  {
+    slug: "astora-explorador-3d-do-universo",
+    title: "Astora: construindo um explorador 3D do Universo no navegador",
+    description:
+      "Como fiz um explorador 3D com Three.js que vai de telescópios em órbita ao Grupo Local de galáxias: níveis de escala, um buraco negro feito de shader, texturas sob demanda e honestidade sobre o que é estilizado.",
+    date: "2026-11-16",
+    tags: ["Three.js", "WebGL", "JavaScript", "Projetos"],
+    readingMinutes: 6,
+    published: true,
+  },
 ];
 
 export function loadSeedPosts(): Post[] {
