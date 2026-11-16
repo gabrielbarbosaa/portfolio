@@ -207,6 +207,84 @@ const studies: SeedStudy[] = [
       },
     },
   },
+  {
+    slug: "astora",
+    repo: "astora",
+    year: "2026",
+    status: "building",
+    technologies: ["JavaScript", "Three.js", "WebGL", "GLSL", "Vite"],
+    content: {
+      pt: {
+        title: "Astora",
+        description:
+          "Explorador 3D do Universo no navegador, em cinco escalas: de telescópios em órbita ao Grupo Local de galáxias, com buracos negros feitos em shader.",
+        longDescription:
+          "Astora é um explorador 3D do Universo que roda no navegador. Você arrasta para girar, rola para dar zoom e clica em um astro para ver Sobre, Dados e Curiosidades. Começou como um modelo do Sistema Solar e virou cinco escalas independentes: telescópios, Sistema Solar, vizinhança estelar, Via Láctea e Grupo Local. É feito com Three.js e Vite, em JavaScript puro e sem framework de UI, com o conteúdo de cada astro em arquivos de dados separados da cena. O projeto também é honesto sobre o que simplifica: o README documenta o que é proporcional, o que tem posição real e o que é estilizado em cada escala.",
+        features: [
+          "Cinco níveis de escala, cada um num módulo próprio e construído só quando você entra nele: telescópios, Sistema Solar, vizinhança estelar, Via Láctea e Grupo Local",
+          "Cerca de 30 observatórios, em órbita e em solo, como Hubble, James Webb (no ponto L2), ALMA e VLT, com os de solo posicionados por latitude e longitude reais",
+          "Sol, planetas, luas, anéis, planetas anões, cinturões de asteroides e de Kuiper e o cometa Halley, com distâncias e diâmetros dos planetas proporcionais entre si",
+          "Cerca de 17 estrelas próximas em posições reais (ascensão reta, declinação e distância), com seus exoplanetas",
+          "Via Láctea com dezenas de milhares de partículas num único Points com shader próprio, e buracos negros (Sagitário A*, Cygnus X-1 e M87*) desenhados em shader, com disco de acreção, efeito Doppler e lente gravitacional",
+          "Terra com mapa de cores, relevo, nuvens e luzes de cidade que só acendem no lado escuro; texturas reais dos planetas carregadas sob demanda quando a câmera chega perto",
+          "Busca \"Explorar\" e atalhos de teclado: / ou Ctrl+K para buscar, 1 a 4 para trocar de escala, setas para navegar entre astros",
+        ],
+        challenges: [
+          "Fazer escalas absurdamente diferentes caberem numa mesma experiência, resolvendo com níveis independentes em vez de uma cena única",
+          "Desenhar um buraco negro convincente sem simular física: um shader num billboard que sempre encara a câmera e cuja inclinação do disco vem do ângulo da câmera",
+          "Manter o desempenho com muitas partículas: um único Points, níveis sob demanda, pixel ratio limitado a 2 e menos partículas em dispositivos touch",
+          "Economizar rede e memória de vídeo, começando cada astro com uma textura procedural e trocando pela real só quando a câmera se aproxima",
+          "Ser honesto sobre a fidelidade, documentando o que é real e o que é estilizado em cada escala",
+        ],
+      },
+      en: {
+        title: "Astora",
+        description:
+          "3D explorer of the Universe in the browser, across five scales: from telescopes in orbit to the Local Group of galaxies, with black holes built in shaders.",
+        longDescription:
+          "Astora is a 3D explorer of the Universe that runs in the browser. You drag to rotate, scroll to zoom and click a body to see About, Data and Curiosities. It started as a model of the Solar System and became five independent scales: telescopes, the Solar System, the stellar neighborhood, the Milky Way and the Local Group. It is built with Three.js and Vite, in plain JavaScript with no UI framework, with each body's content in data files separate from the scene. The project is also honest about what it simplifies: the README documents what is proportional, what has real positions and what is stylized at each scale.",
+        features: [
+          "Five scale levels, each in its own module and built only when you enter it: telescopes, Solar System, stellar neighborhood, Milky Way and Local Group",
+          "About 30 observatories, in orbit and on the ground, such as Hubble, James Webb (at L2), ALMA and VLT, with ground sites placed at real latitude and longitude",
+          "Sun, planets, moons, rings, dwarf planets, asteroid and Kuiper belts and Halley's comet, with planet distances and diameters proportional to each other",
+          "About 17 nearby stars at real positions (right ascension, declination and distance), with their exoplanets",
+          "A Milky Way with tens of thousands of particles in a single Points with its own shader, and black holes (Sagittarius A*, Cygnus X-1 and M87*) drawn in shader, with accretion disk, Doppler effect and gravitational lensing",
+          "An Earth with color map, relief, clouds and city lights that only turn on on the dark side; real planet textures loaded on demand when the camera gets close",
+          "An \"Explore\" search and keyboard shortcuts: / or Ctrl+K to search, 1 to 4 to switch scale, arrows to move between bodies",
+        ],
+        challenges: [
+          "Fitting wildly different scales into one experience, solved with independent levels instead of a single scene",
+          "Drawing a convincing black hole without simulating physics: a shader on a billboard that always faces the camera, with the disk tilt derived from the camera angle",
+          "Keeping performance with many particles: a single Points, on-demand levels, pixel ratio capped at 2 and fewer particles on touch devices",
+          "Saving bandwidth and video memory by starting each body with a procedural texture and swapping in the real one only when the camera gets close",
+          "Being honest about fidelity, documenting what is real and what is stylized at each scale",
+        ],
+      },
+      es: {
+        title: "Astora",
+        description:
+          "Explorador 3D del Universo en el navegador, en cinco escalas: de telescopios en órbita al Grupo Local de galaxias, con agujeros negros hechos en shader.",
+        longDescription:
+          "Astora es un explorador 3D del Universo que corre en el navegador. Arrastras para girar, haces scroll para acercar y haces clic en un astro para ver Sobre, Datos y Curiosidades. Empezó como un modelo del Sistema Solar y se convirtió en cinco escalas independientes: telescopios, Sistema Solar, vecindad estelar, Vía Láctea y Grupo Local. Está hecho con Three.js y Vite, en JavaScript puro y sin framework de UI, con el contenido de cada astro en archivos de datos separados de la escena. El proyecto también es honesto sobre lo que simplifica: el README documenta qué es proporcional, qué tiene posición real y qué está estilizado en cada escala.",
+        features: [
+          "Cinco niveles de escala, cada uno en un módulo propio y construido solo cuando entras en él: telescopios, Sistema Solar, vecindad estelar, Vía Láctea y Grupo Local",
+          "Cerca de 30 observatorios, en órbita y en tierra, como Hubble, James Webb (en el punto L2), ALMA y VLT, con los de tierra ubicados por latitud y longitud reales",
+          "Sol, planetas, lunas, anillos, planetas enanos, cinturones de asteroides y de Kuiper y el cometa Halley, con distancias y diámetros de los planetas proporcionales entre sí",
+          "Cerca de 17 estrellas cercanas en posiciones reales (ascensión recta, declinación y distancia), con sus exoplanetas",
+          "Vía Láctea con decenas de miles de partículas en un único Points con shader propio, y agujeros negros (Sagitario A*, Cygnus X-1 y M87*) dibujados en shader, con disco de acreción, efecto Doppler y lente gravitacional",
+          "Tierra con mapa de colores, relieve, nubes y luces de ciudad que solo se encienden en el lado oscuro; texturas reales de los planetas cargadas bajo demanda cuando la cámara se acerca",
+          "Búsqueda \"Explorar\" y atajos de teclado: / o Ctrl+K para buscar, 1 a 4 para cambiar de escala, flechas para moverse entre astros",
+        ],
+        challenges: [
+          "Hacer que escalas absurdamente distintas quepan en una misma experiencia, resuelto con niveles independientes en lugar de una escena única",
+          "Dibujar un agujero negro convincente sin simular física: un shader en un billboard que siempre mira a la cámara, con la inclinación del disco derivada del ángulo de la cámara",
+          "Mantener el rendimiento con muchas partículas: un único Points, niveles bajo demanda, pixel ratio limitado a 2 y menos partículas en dispositivos touch",
+          "Ahorrar red y memoria de video, empezando cada astro con una textura procedural y cambiándola por la real solo cuando la cámara se acerca",
+          "Ser honesto sobre la fidelidad, documentando qué es real y qué está estilizado en cada escala",
+        ],
+      },
+    },
+  },
 ];
 
 export const seedStudies: Study[] = studies.map((study, order) => ({ ...study, order }));
